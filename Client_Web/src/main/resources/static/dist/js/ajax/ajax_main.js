@@ -2,6 +2,7 @@ var url_api = "http://localhost:8181/api/";
 var url_api_cms = "http://103.9.86.61:8080/admin_cms/api/";
 var url_img = "http://localhost:8181/resources/file_upload/";
 var perfixPrintThis = "";
+
 var ss_lg = null; //token login
 const TRANG_THAI_Tai_Khoan = ["kích hoạt", "khóa"];
 const TRANG_THAI_PHE_DUYET = ["Chưa duyệt", "Đã duyệt/ Đồng ý", "Đã duyệt/ Không đồng ý"];
@@ -10,6 +11,9 @@ const TIME_ALTER = 3000;
 const MAX = 99999;
 const URL_FILE = "http://localhost:8181/resources/file_upload/";
 
+function StaticVariable(){
+    var current_page = ""
+}
 
 $(function () {
     ss_lg = sessionStorage.getItem("token");
@@ -32,7 +36,10 @@ function viewTrangThaiTaiKhoan(taiKhoan) {
 function checkLogin() {
     let pathName = window.location.pathname;
     if(pathName.indexOf("/dang-nhap") === -1 ) {
-        if(ss_lg === null) window.location.href = "dang-nhap";
+        if(ss_lg === null) {
+            window.sessionStorage.setItem("current_page",pathName);
+            location.replace("/dang-nhap")
+        }
     }
 }
 

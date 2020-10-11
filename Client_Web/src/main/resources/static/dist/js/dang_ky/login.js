@@ -51,8 +51,6 @@ $(document).ready(function () {
 function onSubmit(event){
     var username=$('#username').val();
     var password=$('#password').val();
-    console.log(username);
-    console.log(password);
     if(username===null || password===null){
         alterWarning("vui lòng nhập đầy đủ username và password!");
         return;
@@ -77,10 +75,14 @@ function onSubmit(event){
 var check=0;
     ajaxLogin(LoginForm).then((rs)=>{
         if(rs.message=="login success"){
-            location.replace("http://localhost:8282/tong-quan");
+            current =  window.sessionStorage.getItem("current_page");
+            if(current !== null){
+                location.replace(current);
+            }else {
+                location.replace("http://localhost:8282/dang-nhap");
+            }
             window.sessionStorage.setItem("token",rs.data);
             document.cookie = `token=${rs.data}`;
-            console.log("aa");
            check=1;
         }
         else {

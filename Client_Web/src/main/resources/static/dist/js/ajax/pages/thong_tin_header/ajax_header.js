@@ -18,7 +18,6 @@ function setViewHeader() {
             nameTitle.text(rs.data.hoVaTen);
             nameEmp.text(rs.data.hoVaTen);
             let ava = rs.data.urlAnhDaiDien;
-            console.log(ava);
             if(ava === null || ava === ''){
                 avatar.attr("src","./dist/img/avatar2.png")
             }else {
@@ -32,7 +31,12 @@ function setViewHeader() {
         if(rs.message === "found"){
             role.text(rs.data.chucVu.tenChucVu);
             nameCompany.text(rs.data.phongBan.chiNhanh.tongCongTy.tenDoanhNghiep);
-            logo.attr("src",rs.data.phongBan.chiNhanh.tongCongTy.logo);
+            let logoImage = rs.data.phongBan.chiNhanh.tongCongTy.logo;
+            if(logoImage === null || logoImage === ''){
+                logo.attr("src","./dist/img/Logo.png");
+            }else {
+                logo.attr(URL_FILE + logoImage);
+            }
         }
     })
 }

@@ -23,11 +23,11 @@
 <div class="logo">
     <div class="logo-wp">
         <a class="logo-img" href="/danh-sach-hang-hoa">
-            <img id="logo" src="../dist/img/Logo.png" height="80" alt="">
+            <img id="logo" src="./dist/img/Logo.png" height="100" alt="">
         </a>
         <div class="logo-ct">
-            <span>Phần mềm quản lí bán hàng</span>
-            <span id="name-company">Nhà hàng Đức Quý</span>
+            <span style="font-size: 40px;">Phần mềm quản lí bán hàng</span>
+            <span id="name-company" style="font-size: 28px;">Nhà hàng Đức Quý</span>
         </div>
     </div>
 </div>

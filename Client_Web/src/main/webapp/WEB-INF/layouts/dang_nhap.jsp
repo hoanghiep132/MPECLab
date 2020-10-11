@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="resources/dist/css/dang_nhap/dang_nhap.css" type="text/css">
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <script src="resources/plugins/jQuery/jQuery-2.1.3.min.js"></script>
-
     <link rel="stylesheet" href="resources/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <script src="resources/plugins/select2/js/select2.full.min.js"></script>
