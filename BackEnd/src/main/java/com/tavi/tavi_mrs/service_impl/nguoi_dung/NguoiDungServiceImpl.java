@@ -144,6 +144,16 @@ public class NguoiDungServiceImpl implements NguoiDungService {
     }
 
     @Override
+    public Optional<NguoiDung> findByTK(String taiKhoan) {
+        try {
+            return nguoiDungRepo.findByTK(taiKhoan);
+        } catch (Exception ex){
+            LOGGER.log(Level.SEVERE, "find-tai-khoan-error: {0}", ex.getMessage());
+            return null;
+        }
+    }
+
+    @Override
     public Optional<NguoiDung> save(NguoiDung nguoiDung) {
         try{
             return Optional.ofNullable(nguoiDungRepo.save(nguoiDung));

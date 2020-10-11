@@ -18,14 +18,20 @@ public interface NguoiDungPhongBanChucVuVaiTroRepo extends JpaRepository<NguoiDu
             "where n.xoa = false and n.nguoiDung.xoa = false " +
             "and (0 = ?1 or n.phongBan.chiNhanh.id = ?1) " +
             "and ( " +
-            "(n.nguoiDung.hoVaTen is not null and upper(n.nguoiDung.hoVaTen) like concat('%', upper(?2) ,'%'))" +
-            "or (n.nguoiDung.email is not null and upper(n.nguoiDung.email) like concat('%', upper(?2) ,'%') )" +
-            "or (n.nguoiDung.soDienThoai is not null and upper(n.nguoiDung.soDienThoai) like concat('%', upper(?2) ,'%') )" +
-            "or (n.phongBan.tenPhongBan is not null and upper(n.phongBan.tenPhongBan) like concat('%', upper(?2) ,'%') )" +
-            "or (n.chucVu.tenChucVu is not null and upper(n.chucVu.tenChucVu) like concat('%', upper(?2) ,'%') )" +
-            "or (n.vaiTro.tenVaiTro is not null and upper(n.vaiTro.tenVaiTro) like concat('%', upper(?2) ,'%') )" +
+            "(n.nguoiDung.hoVaTen is not null and upper(n.nguoiDung.hoVaTen) like concat('%', upper(?2) ,'%')) " +
+            "or (n.nguoiDung.email is not null and upper(n.nguoiDung.email) like concat('%', upper(?2) ,'%')) " +
+            "or (n.nguoiDung.soDienThoai is not null and upper(n.nguoiDung.soDienThoai) like concat('%', upper(?2) ,'%')) " +
+            "or (n.phongBan.tenPhongBan is not null and upper(n.phongBan.tenPhongBan) like concat('%', upper(?2) ,'%')) " +
+            "or (n.chucVu.tenChucVu is not null and upper(n.chucVu.tenChucVu) like concat('%', upper(?2) ,'%')) " +
+            "or (n.vaiTro.tenVaiTro is not null and upper(n.vaiTro.tenVaiTro) like concat('%', upper(?2) ,'%')) " +
             ")")
     Page<NguoiDungPhongBanChucVuVaiTro> findNguoiDungByPhongBanAndText(int chiNhanhId, String text, Pageable pageable);
+
+    @Query(value = "select distinct n from NguoiDungPhongBanChucVuVaiTro n " +
+            "where n.xoa = false " +
+            "and n.nguoiDung.xoa = false " +
+            "and n.nguoiDung.id = ?1 ")
+    Optional<NguoiDungPhongBanChucVuVaiTro> findByNguoiDungId(int nguoiDungID);
 
     @Query(value = "select  n from NguoiDungPhongBanChucVuVaiTro n " +
             "where n.xoa = false and n.nguoiDung.xoa = false " +

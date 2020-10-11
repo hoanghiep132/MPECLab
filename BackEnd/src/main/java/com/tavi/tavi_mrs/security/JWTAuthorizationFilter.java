@@ -2,6 +2,7 @@ package com.tavi.tavi_mrs.security;
 
 import com.tavi.tavi_mrs.entities.nguoi_dung.NguoiDung;
 import com.tavi.tavi_mrs.repository.nguoi_dung.NguoiDungRepo;
+import com.tavi.tavi_mrs.service_impl.nguoi_dung.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
 
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
@@ -34,10 +34,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         if (header != null && header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(request);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            chain.doFilter(request, response);
         } else {
-            //   System.out.println("no authorization");
+         //   System.out.println("no authorization");
+            chain.doFilter(request , response);
         }
-        chain.doFilter(request, response);
     }
 
     //  read token và cấp quyền
@@ -48,11 +49,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             if (username != null) {
                 NguoiDung appUser = appUserRepo.findByTaiKhoan(username);
                 System.out.println("User Principal: " + appUser.getTaiKhoan());
-                return new UsernamePasswordAuthenticationToken(username, null, new HashSet<>());
+                return new UsernamePasswordAuthenticationToken(username, null, appUser.grantedAuthorities());
             }
+            return null;
         }
         return null;
     }
-
 
 }

@@ -6,16 +6,23 @@ import com.tavi.tavi_mrs.entities.nguoi_dung.NguoiDung;
 import com.tavi.tavi_mrs.payload.user.ForgetPasswordForm;
 import com.tavi.tavi_mrs.payload.user.LoginForm;
 import com.tavi.tavi_mrs.payload.user.RegisterForm;
-import com.tavi.tavi_mrs.security.JWTService;
-import com.tavi.tavi_mrs.security.SecurityConstants;
+
 import com.tavi.tavi_mrs.service.mail.MailService;
 import com.tavi.tavi_mrs.service.nguoi_dung.MaXacNhanService;
 import com.tavi.tavi_mrs.service.nguoi_dung.NguoiDungService;
+
+import com.tavi.tavi_mrs.service_impl.nguoi_dung.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import com.tavi.tavi_mrs.security.SecurityConstants;
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import static com.tavi.tavi_mrs.utils.EncodeUtils.getSHA256;
 
 import java.util.Date;
@@ -38,6 +45,8 @@ public class NguoiDungController {
     private MaXacNhanService maXacNhanService;
 
     private  String randomCode= RandomStringUtils.random(6,String.valueOf(System.currentTimeMillis()));
+
+
 
     @PostMapping("/dang-ky")
     public ResponseEntity<JsonResult> dangKy(@RequestBody RegisterForm registerForm) {
@@ -62,10 +71,12 @@ public class NguoiDungController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<JsonResult> login(@RequestBody LoginForm loginForm) {
+    public ResponseEntity<JsonResult> login(@RequestBody LoginForm loginForm, HttpServletRequest request) {
         if (loginForm.getUsername() != null && loginForm.getPassword() != null ) {
             NguoiDung nguoiDung = nguoiDungService.findByTaiKhoanAndMatKhauAndXoa(loginForm.getUsername(), loginForm.getPassword(), false);
             if (nguoiDung != null) {
+                HttpSession session=request.getSession();
+                session.setAttribute("id",nguoiDung.getId());
                 return ResponseEntity.ok(JsonResult.build("login success", jwtService.generateToken(nguoiDung.getTaiKhoan(), SecurityConstants.EXPIRATION_TIME)));
             }
             return ResponseEntity.ok(JsonResult.build("login fail", "username or password is not correct"));
@@ -76,6 +87,20 @@ public class NguoiDungController {
     @GetMapping("/find-nguoi-dung-by-email")
     public ResponseEntity<JsonResult> findByEmail(@RequestParam("email") String email) {
         return nguoiDungService.findByEmail(email)
+                .map(JsonResult::found)
+                .orElse(JsonResult.idNotFound());
+    }
+
+    @GetMapping("/find-nguoi-dung-by-tai-khoan")
+    public ResponseEntity<JsonResult> findByTaiKhoan(@RequestParam("tai-khoan") String taiKhoan) {
+        return nguoiDungService.findByTK(taiKhoan)
+                .map(JsonResult::found)
+                .orElse(JsonResult.idNotFound());
+    }
+
+    @GetMapping("/find-by-id")
+    public ResponseEntity<JsonResult> findById(@RequestParam("id") int id){
+        return nguoiDungService.findById(id,false)
                 .map(JsonResult::found)
                 .orElse(JsonResult.idNotFound());
     }

@@ -23,6 +23,8 @@ public interface NguoiDungService {
 
     NguoiDung register(NguoiDung nguoiDung);
 
+    Optional<NguoiDung> findByTK(String taiKhoan);
+
     NguoiDung findByTaiKhoanAndMatKhauAndXoa(String taiKhoan, String matKhau, boolean xoa);
 
     Integer findIdByTaiKhoan(String taiKhoan);

@@ -64,4 +64,13 @@ public class NguoiDungPhongBanChucVuVaiTroServiceImpl implements NguoiDungPhongB
             return null;
         }
     }
+
+    @Override
+    public Optional<NguoiDungPhongBanChucVuVaiTro> findByNguoiDungId(int nguoiDungID) {
+        try{
+            return nguoiDungPhongBanChucVuVaiTroRepo.findByNguoiDungId(nguoiDungID);
+        }catch (Exception ex) {
+            return Optional.empty();
+        }
+    }
 }

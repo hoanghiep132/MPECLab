@@ -45,12 +45,12 @@ public class UploadFileController {
             return false;
         }
         try {
-            fileName = LocalDateTime.now().getNano() + file.getOriginalFilename();
+            fileName = LocalDateTime.now().getNano() +  "_" + file.getOriginalFilename();
 //            File uploadedFile = new File(UPLOAD_DIRECTORY, fileName);
             File uploadedFile = new File(System.getProperty("user.dir") + UPLOAD_DIRECTORY, fileName);
-            OutputStream stream;
+            System.out.println(uploadedFile.toString());
             uploadedFile.createNewFile();
-            stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
+            OutputStream stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
             stream.write(file.getBytes());
             stream.flush();
             stream.close();

@@ -16,4 +16,6 @@ public interface NguoiDungPhongBanChucVuVaiTroService {
     int setPhongBanChucVuVaiTro(int chucVuId, int vaiTroId, int newPhongBanId, int nguoiDungId, int phongBanId);
 
     Page<NguoiDungPhongBanChucVuVaiTro> findNguoiDungFullInfor(int chiNhanhId, String text, Pageable pageable);
+
+    Optional<NguoiDungPhongBanChucVuVaiTro> findByNguoiDungId(int nguoiDungID);
 }

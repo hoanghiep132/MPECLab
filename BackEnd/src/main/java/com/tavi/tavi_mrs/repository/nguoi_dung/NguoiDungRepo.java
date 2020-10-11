@@ -42,6 +42,9 @@ public interface NguoiDungRepo extends JpaRepository<NguoiDung, Integer> {
     @Query(value = "select n from NguoiDung n where n.xoa = false and n.id in (?1)")
     List<NguoiDung> findByIdList(List<Integer> listId);
 
+    @Query("select n from NguoiDung n where n.taiKhoan = ?1 and n.xoa = false ")
+    Optional<NguoiDung> findByTK(String taiKhoan);
+
     @Query("select count(n) from NguoiDung n where n.taiKhoan = ?1 and n.xoa = ?2")
     long countByTaiKhoanAndXoa(String taiKhoan, boolean xoa);
 

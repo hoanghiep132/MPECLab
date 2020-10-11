@@ -80,8 +80,10 @@ public class TaiKhoanController {
     }
 
 
-    @RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)
-    public void qrcode(@PathVariable("id") int id, HttpServletResponse response) throws Exception {
+    @GetMapping("/qrcode")
+//    @RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)
+//    public void qrcode(@PathVariable("id") int id, HttpServletResponse response) throws Exception {
+    public void qrcode(@RequestParam("id") int id, HttpServletResponse response) throws Exception {
         Optional<NguoiDung> nguoiDung = nguoiDungService.findById(id,false);
         response.setContentType("image/png");
         OutputStream outputStream = response.getOutputStream();
