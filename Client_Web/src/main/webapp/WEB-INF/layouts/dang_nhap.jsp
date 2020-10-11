@@ -21,7 +21,7 @@
 <body>
 
 <div class="login-form">
-    <form action="" method="post">
+    <form >
         <h2 class="text-center">Đăng nhập</h2>
         <div class="form-group">
             <span class="mp-3">Tài khoản</span>

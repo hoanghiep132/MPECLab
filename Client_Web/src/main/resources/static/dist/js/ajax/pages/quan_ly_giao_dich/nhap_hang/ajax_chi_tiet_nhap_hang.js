@@ -4,6 +4,8 @@ var phieuNhap = null;
 var arr = [];
 var count = 0;
 var xoaCount = 0;
+var nguoiDungId=window.sessionStorage.getItem("id");
+
 $(function () {
 
     selectNguoiNhap = $("#bimo1");
@@ -156,70 +158,76 @@ function setViewPhieuChiTiet(list, pageNumber) {
 
 function clickButtonThanhToan() {
     btnThanhToan.click(function () {
-        let nguoiDungId = 1;
-        let chiNhanhId = 1;
         let nhaCungCapId = $("#select-khach-hang").find(':selected')[0].value;
+        let tienKhachTra = $("#tien-khach-tra")[0].value;
         if(nhaCungCapId <= 0){
             alterWarning("Bạn chưa chọn nhà cung cấp");
-        }else {
-            let tongTien = parseFloat($("#tong-tien")[0].value);
-            let tienDaTra = $("#tien-khach-tra")[0].value;
-            let tienPhaiTra = $("#tien-tra-lai")[0].value;
-            let maPN = Math.floor(Math.random() * 10000);
-            let ghiChu = $("#bimo4")[0].value;
-            let phieuNhap = {
-                maPhieu : "PN-000" + maPN,
-                tongTien : tongTien,
-                tienDaTra : tienDaTra,
-                tienPhaiTra : tienPhaiTra,
-                ghiChu : ghiChu,
-                trangThai : 2
-            }
-            uploadPhieuNhap(phieuNhap,nguoiDungId,nhaCungCapId).then(rs => {
-                if(rs.message === "uploaded"){
-                    let id = rs.data.id;
-                    let count = 0;
-                    let phieuNhapChiTietList = [];
-                    for(i = 1; i <= arr.length;i++) {
-                        if (arr[i - 1] != 0) {
-                            let sl = parseFloat($(`.soLuong${i}`)[0].value);
-                            let thanhTien = parseFloat($(`.tong${i}`)[0].textContent);
-                            let giaNhap = parseFloat($(`.giaNhap${i}`)[0].value);
-                            phieuNhapChiTietList[i - 1 - count] = {
-                                tongTien: thanhTien,
-                                soLuong: sl,
-                                giaNhap: giaNhap,
-                                xoa: false
+        }else if(tienKhachTra == ""){
+            alterWarning("Bạn chưa điền số tiền phải trả");
+        }else{
+            {
+                let tongTien = parseFloat($("#tong-tien")[0].value);
+                let tienDaTra = $("#tien-khach-tra")[0].value;
+                let tienPhaiTra = $("#tien-tra-lai")[0].value;
+                let maPN = Math.floor(Math.random() * 10000);
+                let ghiChu = $("#bimo4")[0].value;
+                findNguoiDungPhongBanByNhanVienId(nguoiDungId).then(rs => {
+                    let chiNhanhId = rs.data.phongBan.chiNhanh.id;
+                    let phieuNhap = {
+                        maPhieu : "PN-000" + maPN,
+                        tongTien : tongTien,
+                        tienDaTra : tienDaTra,
+                        tienPhaiTra : tienPhaiTra,
+                        ghiChu : ghiChu,
+                        trangThai : 2
+                    }
+                    uploadPhieuNhap(phieuNhap,nguoiDungId,nhaCungCapId).then(rs => {
+                        if(rs.message === "uploaded"){
+                            let id = rs.data.id;
+                            let count = 0;
+                            let phieuNhapChiTietList = [];
+                            for(i = 1; i <= arr.length;i++) {
+                                if (arr[i - 1] != 0) {
+                                    let sl = parseFloat($(`.soLuong${i}`)[0].value);
+                                    let thanhTien = parseFloat($(`.tong${i}`)[0].textContent);
+                                    let giaNhap = parseFloat($(`.giaNhap${i}`)[0].value);
+                                    phieuNhapChiTietList[i - 1 - count] = {
+                                        tongTien: thanhTien,
+                                        soLuong: sl,
+                                        giaNhap: giaNhap,
+                                        xoa: false
+                                    }
+                                } else {
+                                    count++;
+                                }
                             }
-                        } else {
-                            count++;
-                        }
-                    }
-                    let hangHoaIdList = [];
-                    for(i = 0; i < arr.length;i++){
-                        if(arr[i] != 0){
-                            hangHoaIdList.push(parseInt(arr[i]));
-                        }
-                    }
-                    let phieuNhapForm = {
-                        phieuNhapHangId : id,
-                        chiNhanhId : chiNhanhId,
-                        hangHoaIdList : hangHoaIdList,
-                        phieuNhapHangChiTietList: phieuNhapChiTietList
-                    }
-                    uploadPhieuNhapChiTiet(phieuNhapForm).then(rs => {
-                        if(rs.message === "success") {
-                            alterSuccess("Nhập hàng thành công");
-                        }else {
+                            let hangHoaIdList = [];
+                            for(i = 0; i < arr.length;i++){
+                                if(arr[i] != 0){
+                                    hangHoaIdList.push(parseInt(arr[i]));
+                                }
+                            }
+                            let phieuNhapForm = {
+                                phieuNhapHangId : id,
+                                chiNhanhId : chiNhanhId,
+                                hangHoaIdList : hangHoaIdList,
+                                phieuNhapHangChiTietList: phieuNhapChiTietList
+                            }
+                            uploadPhieuNhapChiTiet(phieuNhapForm).then(rs => {
+                                if(rs.message === "success") {
+                                    alterSuccess("Nhập hàng thành công");
+                                }else {
+                                    console.log(rs.message);
+                                    alterDanger("Nhập hàng không thành công");
+                                }
+                            });
+                        }else{
                             console.log(rs.message);
                             alterDanger("Nhập hàng không thành công");
                         }
                     });
-                }else{
-                    console.log(rs.message);
-                    alterDanger("Nhập hàng không thành công");
-                }
-            });
+                })
+            }
         }
     })
 }

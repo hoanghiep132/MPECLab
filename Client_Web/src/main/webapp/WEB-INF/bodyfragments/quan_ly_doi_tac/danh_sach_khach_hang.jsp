@@ -71,10 +71,14 @@
 
 
                     </div>
-
                     <div class="row">
-                        <div class="col-xs-12 text-center">
+                        <div class="col-xs-6 text-center">
+                            <label style="opacity: 0">btn</label>
                             <button class="btn btn-primary" id="btn-search-1">Tìm Kiếm</button>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <label style="opacity: 0">btn</label>
+                            <button class="btn btn-primary" id="btn-excel">In danh sách khách hàng</button>
                         </div>
                     </div>
                 </div>

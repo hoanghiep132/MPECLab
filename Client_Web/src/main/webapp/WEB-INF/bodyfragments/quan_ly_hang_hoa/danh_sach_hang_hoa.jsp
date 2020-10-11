@@ -53,6 +53,7 @@
                 <th> Thương Hiệu</th>
                 <th>  Nhóm hàng </th>
             </tr>
+
             <td>1</td>
             <td></td>
             <td></td>

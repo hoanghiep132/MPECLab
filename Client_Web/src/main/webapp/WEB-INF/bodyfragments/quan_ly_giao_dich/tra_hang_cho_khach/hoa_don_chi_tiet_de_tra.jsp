@@ -4,11 +4,13 @@
 <script src="resources/model/khach_tra_hang/ajax_khach_tra_hang.js"></script>
 <script src="resources/pages/quan_ly_giao_dich/tra_hang_cho_khach/ajax_chi_tiet_hoa_don_de_tra.js"></script>
 <script src="resources/model/hoa_don/ajax_hoa_don.js"></script>
+<script src="resources/model/nhan_vien/ajax_nhan_vien.js"></script>
+
 <!-- Main content -->
 <section class="content">
     <div class="buifmaop">
         <div class="buifmaoptitle">
-            <span class="page-title">Danh sách khách trả hàng</span>
+            <span class="page-title">Danh sách trả hàng khách</span>
         </div>
 
         <div class="buifmaopct">
@@ -166,12 +168,9 @@
                          </div>
             </div>
 
-                <style>
-
-                </style>
 
 
-                <div class="col-md-4">
+                <div class="kth col-md-4">
                     <h3 id="tenCongTy" class="text-center">Công ty : </h3>
                     <h4 id="maHoaDon">MÃ HÓA ĐƠN :</h4>
 
@@ -253,7 +252,7 @@
                             <button class="btn btn-success" style="width: 100px" id="btn-tra-hang">Trả hàng</button>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-primary" style="width: 100px" id="btn-sua-nhom-hang">In </button>
+                            <button class="btn btn-primary" style="width: 100px" id="btn-print">In </button>
                         </div>
                         <div class="col-md-4">
                             <button class="btn btn-danger" style="width: 100px" id="btn-xoa-nhom-hang">Xuất excel</button>

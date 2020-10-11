@@ -1,6 +1,7 @@
 var selectChiNhanh,inputSearch,btnSearch,table;
 let tongTien, chiNhanhId;
 var arr  = [];
+var nguoiDungId=window.sessionStorage.getItem("id");
 
 $(function () {
 
@@ -141,7 +142,6 @@ function enterThayDoiSoLuong() {
 
 function clickUpload() {
     btnUpload.click(function () {
-        let nguoiDungId = 1;  // can sua lai khi da them chuc nang dang nhap
         var currentdate = new Date();
         var datetime = currentdate.getFullYear() + "-"
             + (currentdate.getMonth() < 10 ? "0" : "") + (currentdate.getMonth() + 1) + "-"
@@ -151,9 +151,7 @@ function clickUpload() {
             + (currentdate.getSeconds() < 10 ? "0" : "") + currentdate.getSeconds();
         console.log(datetime);
         let tong = $("#canTra")[0].textContent;
-        let maPhieu = Math.floor(Math.random() * 10000);
         var phieuTraHang = {
-            maPhieu : "PTN-000" +maPhieu,
             thoiGian: datetime,
             tongTien: tong,
             tienPhaiTra: tong,

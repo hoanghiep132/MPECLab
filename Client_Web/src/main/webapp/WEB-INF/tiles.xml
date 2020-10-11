@@ -141,10 +141,18 @@
         <put-attribute name="body" value="/WEB-INF/bodyfragments/quan_ly_giao_dich/nhap_hang/chi_tiet_nhap_hang.jsp"/>
     </definition>
 
+    <!-- Chi tiết nhập hàng 2 -->
+    <definition name="chi-tiet-nhap-hang-2" extends="base.definition">
+        <put-attribute name="title" value="Chi tiết nhập hàng"/>
+        <put-attribute name="body" value="/WEB-INF/bodyfragments/quan_ly_giao_dich/nhap_hang/chi_tiet_nhap_hang_2.jsp"/>
+    </definition>
+
     <definition name="nhap-hang-chi-tiet" extends="base.definition">
         <put-attribute name="title" value="Chi tiết nhập hàng"/>
         <put-attribute name="body" value="/WEB-INF/bodyfragments/quan_ly_giao_dich/nhap_hang/nhap_hang_chi_tiet.jsp"/>
     </definition>
+
+
 
 
     <!-- Danh sách tra khach hàng  -->
@@ -176,9 +184,11 @@
         <put-attribute name="body" value="/WEB-INF/bodyfragments/quan_ly_hang_hoa/thiet_lap_gia.jsp"/>
     </definition>
 
-
-
-
+    <!-- Tong quan  -->
+    <definition name="tong-quan" extends="base.definition">
+        <put-attribute name="title" value="Tổng quan"/>
+        <put-attribute name="body" value="/WEB-INF/bodyfragments/tong_quan/tong_quan.jsp"/>
+    </definition>
 
 
 </tiles-definitions>

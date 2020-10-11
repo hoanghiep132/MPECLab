@@ -25,6 +25,7 @@ $(function() {
     clickSuaNhaCungCap();
     clickXoaNhaCungCap();
     clickSearchNhaCungCap();
+    taiExcelTK();
 })
 
 function clickSearchNhaCungCap() {
@@ -268,4 +269,16 @@ function clickXoaNhaCungCap() {
     })
 }
 
-
+function taiExcelTK() {
+    $('#btn-excel').on('click', function () {
+        console.log("inds");
+        ajaxGet('v1/admin/nha-cung-cap/excel?list-nha-cung-cap=' + arrNhaCungCap.map(hoaDon => hoaDon.id))
+            .then(rs => {
+                window.open(rs.data, '_blank');
+            }).catch(ex => {
+            console.log(ex);
+            alterDanger("Tạo file excel thất bại");
+        })
+    });
+    clickPrintElement(".ttcttk");
+}

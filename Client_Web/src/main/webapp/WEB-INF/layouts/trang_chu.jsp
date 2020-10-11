@@ -1,5 +1,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<script src="resources/pages/thong_tin_header/ajax_header.js"></script>
 <!DOCTYPE html>
 <html>
 
@@ -22,11 +23,11 @@
 <div class="logo">
     <div class="logo-wp">
         <a class="logo-img" href="/danh-sach-hang-hoa">
-            <img src="../dist/img/Logo.png" height="80" alt="">
+            <img id="logo" src="../dist/img/Logo.png" height="80" alt="">
         </a>
         <div class="logo-ct">
             <span>Phần mềm quản lí bán hàng</span>
-            <span>Nhà hàng Đức Quý</span>
+            <span id="name-company">Nhà hàng Đức Quý</span>
         </div>
     </div>
 </div>

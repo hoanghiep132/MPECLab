@@ -1,7 +1,7 @@
 var selectChiNhanh,inputSearch,btnSearch,table, table2;
 var arr  = [];
 var arr2 = [];
-const TRANG_THAI_PHIEU_NHAP_DE_TRA = ["Đang Chờ", "Đã trả"];
+const TRANG_THAI_PHIEU_NHAP_DE_TRA = [  "Đang Chờ", "Đã trả"];
 function viewTrangThai(phieuTraHang) {
     return TRANG_THAI_PHIEU_NHAP_DE_TRA[phieuTraHang.trangThai];
 }
@@ -118,7 +118,7 @@ function setViewHoaDon(pageNumber) {
     if (len > 0) {
         view2 += arr2.map((item, index) => `<tr data-index="${index}" class="click-thuong-hieu">
                     <td data-id="${viewField(item.id)}">${(pageNumber - 1)*10 + index + 1}</td>
-                    <td>${viewField(item.ma)}</td>
+                    <td>${viewField(item.maHoaDon)}</td>
                     <td>${viewThoiGian(item.thoiGian)}</td>
                     <td>${viewField(item.nguoiDung.hoVaTen)}</td>
                     <td>${viewField(item.khachHang.tenKhachHang)}</td>

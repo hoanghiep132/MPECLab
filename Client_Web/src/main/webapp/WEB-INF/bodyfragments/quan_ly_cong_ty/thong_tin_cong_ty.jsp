@@ -168,3 +168,9 @@
 </script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <!-- /.content-wrapper -->
+<style>
+    .form-group {
+        margin-bottom: 10px !important;
+        padding-bottom: 2px !important;
+    }
+</style>

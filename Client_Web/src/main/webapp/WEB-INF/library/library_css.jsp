@@ -45,5 +45,6 @@ folder instead of downloading all of them to reduce the load. -->
 <script src="resources/plugins/moment-with-locales.js"></script>
 <link href="resources/dist/css/style.css" rel="stylesheet" type="text/css"/>
 <link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
+
 <%--Main--%>
 

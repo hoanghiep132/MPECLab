@@ -9,7 +9,7 @@
 <section class="content">
     <div class="buifmaop">
         <div class="buifmaoptitle">
-            <span class="page-title">Danh sách phiếu khách trả h</span>
+            <span class="page-title">Danh sách phiếu trả hàng cho khách</span>
         </div>
         <div class="buifmaopct">
             <div class="row">

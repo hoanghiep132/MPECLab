@@ -25,6 +25,7 @@ $(function () {
     let searchParams = new URLSearchParams(window.location.search);
     let param = searchParams.get('id');
     callSearch(param);
+    taiExcelTK();
 
 })
 
@@ -138,5 +139,19 @@ function viewThoiGian(thoiGian){
     var tg = thoiGian.substring(11,19) + " " + thoiGian.substring(8,10) +"/"
         + thoiGian.substring(5,7) + "/" + thoiGian.substring(0,4);
     return tg;
+}
+
+function taiExcelTK() {
+    $('#btn-excel').on('click', function () {
+        console.log("inds");
+        ajaxGet('v1/admin/phieu-nhap-hang-chi-tiet/excel?list-phieu-nhap-hang-chi-tiet=' + arr.map(hoaDonChiTiet => hoaDonChiTiet.id))
+            .then(rs => {
+                window.open(rs.data, '_blank');
+            }).catch(ex => {
+            console.log(ex);
+            alterDanger("Tạo file excel thất bại");
+        })
+    });
+    clickPrintElement(".ttcttk");
 }
 

@@ -4,6 +4,8 @@
 <script src="resources/model/phieu_nhap_de_tra/ajax_nhap_chi_tiet_de_tra.js"></script>
 <script src="resources/model/phieu_nhap_de_tra/ajax_nhap_de_tra.js"></script>
 <script src="resources/pages/quan_ly_giao_dich/tra_hang_cho_nha_cung_cap/ajax_chi_tiet_phieu_nhap_de_tra.js"></script>
+<script src="resources/model/nhan_vien/ajax_nhan_vien.js"></script>
+
 <!-- Main content -->
 <section class="content">
     <div class="buifmaop">
@@ -209,7 +211,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <label >Tổng tiền hàng nhập</label>
+                            <label >Tổng giá gốc hàng mua</label>
                         </div>
                         <div class="col-md-6 text-center">
                             <p id="giaGoc"></p>
@@ -225,9 +227,12 @@
                         </div>
                     </div>
 
+
+
+
                     <div class="row ">
                         <div class="col-md-6">
-                            <label>Tiền trả lại</label>
+                            <label>Cần trả khách</label>
                         </div>
                         <div class="col-md-6 text-center">
                             <p id="canTra">10000</p>

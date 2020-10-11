@@ -3,6 +3,7 @@ var arr  = [];
 var donViHangHoaId = 0;
 var mousedownHappened = false;
 var tenHangHoa,hangHoaId;
+var page;
 
 
 function viewThoiGian(thoiGian){
@@ -58,7 +59,8 @@ function checkClick() {
     $(document).on('blur',".giaBan" ,function () {
         let currentRow = $(this).closest("tr");
         let hang = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
-        let stt = hang -1;
+        let stt = hang -(page-1)*10 -1;
+        console.log(hang);
         let giaBan = parseFloat($("td input")[stt].value);
         let giaBanCu = arr[stt].lichSuGiaBan.giaBan;
         let giaNhap = parseFloat($(".giaNhap")[stt].textContent);
@@ -117,7 +119,7 @@ function updateGiaBan() {
             mousedownHappened = true;
             let currentRow = $(this).closest("tr");
             let hang = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
-            let stt = hang - (page-1)*8 - 1 ;
+            let stt = hang -(page-1)*10 -1;
             let giaBan = parseFloat($("td input")[stt].value);
             let giaNhap = parseFloat($(".giaNhap")[stt].textContent);
             if(giaBan < giaNhap){
@@ -178,14 +180,23 @@ function searchHangHoa() {
                 // Query parameters will be ?text=[term]&page=1&size=5
             },
             processResults: function (data) {
-                var rs = [];
-                $.each(data.data.currentElements, function(idx, item) {
-                    rs.push({
-                        'id': item.id,
-                        'text': item.tenHangHoa
+                let rs = [];
+                if(data.message == "found"){
+                    $.each(data.data.currentElements, function(idx, item) {
+                        rs.push({
+                            'id': item.id,
+                            'text': item.tenHangHoa
+                        });
                     });
-                });
-                return { results: rs };
+                    return { results: rs };
+                }else{
+                    rs.push({
+                        'text' : "Không tìm thấy hàng hóa"
+                    });
+                }
+                return {
+                    results: rs
+                };
             }
         }
     });
@@ -216,7 +227,7 @@ function chooseHHSearch() {
                     return query;
                 },
                 processResults: function (data) {
-                    var rs = [];
+                    let rs = [];
                     if(data.message != "not found"){
                         $.each(data.data.currentElements, function(idx, item) {
                             rs.push({
@@ -262,14 +273,24 @@ function chooseDVSearch(){
                         return query;
                     },
                     processResults: function (data) {
-                        var rs = [];
-                        $.each(data.data.currentElements, function(idx, item) {
-                            rs.push({
-                                'id': item.id,
-                                'text': item.tenDonVi
+                        if(data.message == "not found"){
+                            let rs = {
+                                'text': "Không tìm thấy đơn vị"
+                            }
+                            return {
+                                results: rs
+                            }
+                        }else{
+                            let rs = [];
+                            $.each(data.data.currentElements, function(idx, item) {
+                                rs.push({
+                                    'id': item.id,
+                                    'text': item.tenDonVi
+                                });
                             });
-                        });
-                        return { results: rs };
+                            return { results: rs };
+                        }
+
                     }
                 }
             });
@@ -289,7 +310,6 @@ function uploadDonViHangHoa() {
         }
         saveDonViHangHoa(donViHangHoa,hangHoaId,donViId).then(rs => {
             if(rs.message == "uploaded"){
-                console.log(JSON.stringify(rs.data));
                 alterSuccess("Thêm đơn vị hàng hóa mới thành công");
                 let id = rs.data.id;
                 $.ajax({
@@ -353,10 +373,10 @@ function clickSearch() {
         callSearch(text);
     })
 }
-var page;
+
 function callSearch(text = "%") {
     let chiNhanhId = 1;
-    searchGiaBan(chiNhanhId, text,1,8).then(rs => {
+    searchGiaBan(chiNhanhId, text).then(rs => {
         if (rs.message === "found") {
             $('#pagination1').pagination({
                 dataSource: function (done) {
@@ -374,13 +394,12 @@ function callSearch(text = "%") {
                 showFirstOnEllipsisShow: true,
                 showLastOnEllipsisShow: true,
                 callback: function (response, pagination) {
+                    page = pagination.pageNumber;
                     if (pagination.pageNumber == 1) {
                         arr = rs.data.currentElements;
                         setView(1);
                         return;
                     }
-                    let chiNhanhId = 1;
-                    page = pagination.pageNumber;
                     searchGiaBan(chiNhanhId,text, pagination.pageNumber).then(rs => {
                         arr = rs.data.currentElements;
                         setView(pagination.pageNumber);
@@ -409,8 +428,8 @@ function setView(pageNumber) {
                 </tr>`;
     let len = arr.length;
     if (len > 0) {
-        view += arr.map((item, index) =>  `<tr data-index="${index}" class="click-thuong-hieu" style="height: 43px">
-                    <td data-id="${viewField(item.id)}">${(pageNumber - 1)*8 + index + 1}</td>
+        view += arr.map((item, index) =>  `<tr data-index="${index}" class="click-thuong-hieu">
+                    <td data-id="${viewField(item.id)}">${(pageNumber - 1)*10 + index + 1}</td>
                     <td>${viewField(item.lichSuGiaBan.donViHangHoa.hangHoa.ma)}</td>
                     <td>${viewField(item.lichSuGiaBan.donViHangHoa.hangHoa.tenHangHoa)}</td>
                     <td>${viewField(item.lichSuGiaBan.donViHangHoa.donVi.tenDonVi)}</td>
@@ -420,14 +439,14 @@ function setView(pageNumber) {
                     <td><input type="number" class="giaBan" value="${viewField(item.lichSuGiaBan.giaBan)}"></td>
                 </tr>`
         );
-        if(len < 8) {
+        if(len < 10) {
             len++;
-            for (let i = len; i <= 8; i++) {
-                view += `<tr style="height: 43px"><td>${(pageNumber - 1)*8 + i}</td><td></td><td></td><td></td><td></td><td></td></tr>`
+            for (let i = len; i <= 10; i++) {
+                view += `<tr><td>${(pageNumber - 1)*10 + i}</td><td></td><td></td><td></td><td></td><td></td></tr>`
             }
         }
     } else {
-        view += `<trstyle="height: 60px"><td colspan="9">Không có thông tin phù hợp</td></tr>`
+        view += `<tr><td colspan="9">Không có thông tin phù hợp</td></tr>`
     }
     table.html(view);
 }

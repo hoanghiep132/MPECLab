@@ -25,6 +25,7 @@ $(function() {
     clickSuakhachHang();
     clickXoakhachHang();
     clickSearchkhachHang();
+    taiExcelTK();
 })
 
 function clickSearchkhachHang() {
@@ -266,6 +267,20 @@ function clickXoakhachHang() {
             alterInfo("Vui lòng chọn một khách hàng để thực hiện thao tác", TIME_ALTER);
         }
     })
+}
+
+function taiExcelTK() {
+    $('#btn-excel').on('click', function () {
+        console.log("inds");
+        ajaxGet('v1/admin/khach-hang/excel?list-khach-hang=' + arrkhachHang.map(khachHang => khachHang.id))
+            .then(rs => {
+                window.open(rs.data, '_blank');
+            }).catch(ex => {
+            console.log(ex);
+            alterDanger("Tạo file excel thất bại");
+        })
+    });
+    clickPrintElement(".ttcttk");
 }
 
 

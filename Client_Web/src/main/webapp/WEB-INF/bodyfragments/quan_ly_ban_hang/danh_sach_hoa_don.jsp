@@ -2,9 +2,47 @@
 <link rel="stylesheet" href="resources/dist/css/qlttdn.css">
 <script src="resources/model/ban_hang/ajax_danh_sach_hoa_don.js"></script>
 <script src="resources/pages/quan_ly_ban_hang/ajax_danh_sach_hoa_don.js"></script>
+<script src="resources/model/chi_nhanh/ajax_chi_nhanh.js"></script>
 
-<!-- Main content -->
 <section class="content">
+
+<%--    modal thay doi trang thai--%>
+    <div class="modal" tabindex="-1" role="dialog" id="modal-trang-thai">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thay đổi trạng thái hóa đơn</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p style="font-size: 16px">Đổi trạng thái mới cho hóa đơn bạn đã chọn</p>
+                    <p id="trang-thai-cu" style="font-size: 16px"></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="caifop1li">
+                                <label style="font-size: 16px">Trạng thái mới</label>
+                                <select class="js-example-basic-single" name="state" id="select-trang-thai">
+                                    <option value="0">Lưu tạm</option>
+                                    <option value="1">Đang Giao</option>
+                                    <option value="2">Đã Giao</option>
+                                    <option value="3">Đang Đóng Gói</option>
+                                    <option value="4">Khách Hủy</option>
+                                    <option value="5">Đơn Vị Giao Hủy</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirm-btn">Xác nhận</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refuse-btn">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="buifmaop">
         <div class="buifmaoptitle">
             <span class="page-title">Danh sách hóa đơn</span>
@@ -72,14 +110,27 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-6">
+                    <div class="caifop1li">
+                        <label for="bimo2">Thuộc chi nhánh</label>
+                        <select class="js-example-basic-single" name="state" id="bimo0">
+                            <option value=0>Tất cả</option>
+                            <option value=1>Đống Đa</option>
+                            <option value=2>Thanh Xuân</option>
+                            <option value=3>Ba Đình</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-xs-6 text-center">
                     <label style="opacity: 0">btn</label>
                     <button class="btn btn-primary" id="btn-search">Tìm Kiếm</button>
                 </div>
-                <div class="col-xs-6 text-center">
-                    <label style="opacity: 0">btn</label>
-                    <button class="btn btn-primary" id="btn-excel">In danh sách hóa đơn</button>
-                </div>
+            <div class="col-xs-6 text-center">
+                <label style="opacity: 0">btn</label>
+                <button class="btn btn-primary" id="btn-excel">In danh sách hóa đơn</button>
+            </div>
             </div>
         </div>
     </div>

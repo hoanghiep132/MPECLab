@@ -79,13 +79,13 @@ function callSearchHangHoa(chiNhanhId = 0 , text = "%") {
 
 function setViewHangHoa(pageNumber) {
     let view = `<tr>
-                <th>STT</th>
+                    <th>STT</th>
                 <th>Mã hàng</th>
                 <th>Tên hàng</th>
-                <th> Thương Hiệu</th>
-                <th>  Nhóm hàng </th>
-                <th>Tồn kho </th>
                 <th>Mô tả </th>
+                <th>Tồn kho </th>
+                 <th> Thương Hiệu</th>
+                <th>  Nhóm hàng </th>
                 </tr>`;
     let len = arrHangHoa.length;
     if (len > 0) {
@@ -93,10 +93,11 @@ function setViewHangHoa(pageNumber) {
                     <td>${(pageNumber - 1)*10 + index + 1}</td>
                     <td>${viewField(item.hangHoa.ma)}</td>
                     <td>${viewField(item.hangHoa.tenHangHoa)}</td>
-                    <td>${viewField(item.hangHoa.thuongHieu.tenThuongHieu)}</td>
-                    <td>${viewField(item.hangHoa.nhomHang.tenNhomHang)}</td>
-                    <td>${viewField(item.tonKho)}</td>
                     <td>${viewField(item.hangHoa.moTa)}</td>
+                    <td>${viewField(item.tonKho)}</td>
+ 
+                     <td>${viewField(item.hangHoa.thuongHieu.tenThuongHieu)}</td>
+                      <td>${viewField(item.hangHoa.nhomHang.tenNhomHang)}</td>
                 </tr>`);
         if(len < 10) {
             len++;

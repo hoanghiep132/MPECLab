@@ -152,6 +152,7 @@ function clickLuuHangHoa() {
                 let {check: checkAnh, val: valAnh} = checkImg();
                 if(checkAnh) {
                     uploadFileHangHoa().then(rs => {
+                        console.log(rs);
                         hangHoa = {
                             maGiamGia: valMGG,
                             moTa: $(".nicEdit-main").html(),

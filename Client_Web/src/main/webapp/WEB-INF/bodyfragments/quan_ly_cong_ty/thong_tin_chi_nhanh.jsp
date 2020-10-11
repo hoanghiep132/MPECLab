@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script src="dist/js/ajax/pages/quan_ly_cong_ty/ajax_chi_nhanh.js"></script>
 <script src = "dist/js/ajax/model/chi_nhanh/model-chi-nhanh.js"></script>
+<link rel="stylesheet" href="resources/dist/css/qlttdn.css">
 <!-- Modal -->
 <!--remove Branch-->
 <div class="modal fade in" id="modal-remove">
@@ -40,20 +41,20 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-md-4">Địa chỉ</label>
-                    <input type="text" class="form-control col-md-8" id="input-text-addressBranch" placeholder="Nhập đại chỉ">
+                    <label class="col-sm-6">Địa chỉ</label>
+                    <input type="text" class="form-control col-sm-6" id="input-text-addressBranch" placeholder="Nhập đại chỉ">
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-4"> Trạng thái kết nối</label>
-                    <select class="form-control col-md-8" id="connectiveStatusSelect">
+                    <label class="col-sm-6"> Trạng thái kết nối</label>
+                    <select class="form-control col-sm-6" id="connectiveStatusSelect">
                         <option value=1>True</option>
                         <option value=0>False</option>
                     </select>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-md-4">Trạng thái hoạt động</label>
-                    <select class="form-control col-md-8" id="activeStatusSelect">
+                    <label class="col-sm-6">Trạng thái hoạt động</label>
+                    <select class="form-control col-sm-6" id="activeStatusSelect">
                         <option value=1>True</option>
                         <option value=0>False</option>
 
@@ -61,8 +62,8 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-md-4">Địa chỉ IP</label>
-                    <input type="text" class="form-control col-md-8" id="input-text-ipAddressBranch" placeholder="Nhập địa chỉ IP">
+                    <label class="col-sm-6">Địa chỉ IP</label>
+                    <input type="text" class="form-control col-sm-6" id="input-text-ipAddressBranch" placeholder="Nhập địa chỉ IP">
                 </div>
             </div>
 
@@ -85,27 +86,28 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Địa chỉ</label>
-                    <input type="text" class="form-control" id="input-text-addressEditedBranch" placeholder="Nhập địa chỉ Chi nhánh">
+                <div class="form-group row">
+                    <label class="col-sm-6">Địa chỉ</label>
+                    <input type="text" class="form-control col-sm-6" id="input-text-addressEditedBranch" placeholder="Nhập địa chỉ Chi nhánh">
                 </div>
-                <div class="form-group">
-                    <label>Trạng thái kết nối</label>
-                    <select class="form-control select2bs4 select2-hidden-accessible" id="connectiveStatusEditedBranchSelect">
+
+                <div class="form-group row">
+                    <label class="col-sm-6">Trạng thái kết nối</label>
+                    <select class="form-control col-sm-6"  id="connectiveStatusEditedBranchSelect">
                         <option value=1>True</option>
                         <option value=0>false</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Trạng thái hoạt động</label>
-                    <select class="form-control select2bs4 select2-hidden-accessible" id="activeStatusEditedBranchSelect">
+                <div class="form-group row">
+                    <label class="col-sm-6">Trạng thái hoạt động</label>
+                    <select class="form-control col-sm-6"  id="activeStatusEditedBranchSelect">
                         <option value=1>True</option>
                         <option value=0>false</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Địa chỉ IP</label>
-                    <input type="text" class="form-control" id="input-text-ipAddressEditedBranch" placeholder="Nhập địa chỉ IP">
+                <div class="form-group row">
+                    <label class="col-sm-6">Địa chỉ IP</label>
+                    <input type="text" class="form-control " id="input-text-ipAddressEditedBranch col-sm-6" placeholder="Nhập địa chỉ IP">
 
                 </div>
             </div>
@@ -192,9 +194,9 @@
 
                     </div>
 
-                    <div class="row table-responsive">
-                        <table class="table table-bordered table-hover text-center align-middle">
-                            <thead class="color-main">
+                    <div class="buifmaoptb table-responsive">
+                        <table class="table table-hover">
+
                             <tr>
                                 <th>STT</th>
                                 <th>Mã chi nhánh</th>
@@ -203,7 +205,7 @@
                                 <th>Trạng thái</th>
                                 <th>Chức năng</th>
                             </tr>
-                            </thead>
+
                             <tbody id="data-table">
                             <tr>
                                 <td>1</td>
@@ -232,3 +234,9 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<style>
+    .form-group {
+        margin-bottom: 10px !important;
+        padding-bottom: 2px !important;
+    }
+</style>

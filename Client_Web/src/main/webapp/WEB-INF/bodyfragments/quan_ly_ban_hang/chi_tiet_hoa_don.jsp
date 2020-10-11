@@ -4,6 +4,8 @@
 <script src="resources/model/ban_hang/ajax_chi_tiet_hoa_don.js"></script>
 <script src="resources/model/hoa_don/ajax_hoa_don.js"></script>
 <script src="resources/pages/quan_ly_ban_hang/ajax_chi_tiet_hoa_don.js"></script>
+<script src="resources/model/nhan_vien/ajax_nhan_vien.js"></script>
+<script src="resources/model/phieu_thu_chi/ajax_phieu_no.js"></script>
 
 <%--modal them khach hang--%>
 <div class="modal fade" id="modal-khach-hang" tabindex="-1" role="dialog" aria-hidden="true">
@@ -36,10 +38,10 @@
                     <input type="text" class="form-control" id="dia-chi-khach-hang">
                     <span class="help-block">Help block with error</span>
                 </div><div class="caifop1li form-group">
-                    <label>Ngày sinh :</label>
-                    <input type="date" id="birthday" name="birthday">
-                    <span class="help-block">Help block with error</span>
-                </div>
+                <label>Ngày sinh :</label>
+                <input type="date" id="birthday" name="birthday">
+                <span class="help-block">Help block with error</span>
+            </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -49,15 +51,58 @@
     </div>
 </div>
 
-
-<!-- Main content -->
-<section class="content">
-    <div class="buifmaop">
-        <div class="buifmaoptitle">
-            <span class="page-title">Thêm hóa đơn</span>
+<%--modal confirm khách hàng nợ --%>
+<div class="modal" tabindex="-1" role="dialog" id="modal-cho-no">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Số tiền khách trả ít hơn tổng tiền hóa đơn. Bạn có chắc chắn không?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirm-btn">Có</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refuse-btn">Hủy</button>
+            </div>
         </div>
+    </div>
+</div>
 
-        <div class="buifmaop">
+<%--modal hien thi tong so no--%>
+<div class="modal" tabindex="-1" role="dialog" id="modal-display-no">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông báo lập hóa đơn mới thành công</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Thêm phiếu nợ mới</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main content -->
+<style>
+    .tttk{
+        margin-left: 20px ;
+        margin-right: 20px;
+    }
+</style>
+<div class="tttk buifmaop">
+    <div class="buifmaoptitle">
+        <span class="page-title">Thêm hóa đơn</span>
+    </div>
+        <div class=" buifmaop">
             <div class="buifmaoptitle">
                 <span class="page-title">Thông tin hóa đơn</span>
             </div>
@@ -108,7 +153,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
     <div class="buifmaoptb">
         <hr/>
         <div class="row thong-tin-phieu" style="margin-bottom: 5px">
@@ -149,99 +194,16 @@
             </tbody>
         </table>
     </div>
+
     <div class="row">
         <div class="col-xs-12 text-center">
             <button class="btn btn-success" style="width: 100px" id="btn-thanh-toan">Thanh Toán</button>
-            <button class="btn btn-primary" style="width: 100px" id="btn-in">In</button>
+            <button class="btn btn-primary" style="width: 100px" id="btn-print">In</button>
             <button class="btn btn-danger" style="width: 100px" id="btn-xoa-hoa-don">Xóa</button>
         </div>
     </div>
-<!--
-                <div class="col-md-4">
-                    <h3 id="tenCongTy" class="text-center">Công ty : </h3>
-                    <h4 id="maHoaDon">MÃ HÓA ĐƠN :</h4>
+</div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label id="tenChiNhanh">Chi nhánh :</label>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label id="khachHang">Khách Hàng:</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label id="ngayBan">Ngày bán :</label>
-                        </div>
-                        <div class="col-md-6">
-                            <label id="diaChi">Địa chỉ :</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label id="tenNhanVien">Nhân Viên :</label>
-                        </div>
-                        <div class="col-md-6">
-                            <label id="dienThoaiKhach">Số điện thoại khách:</label>
-                        </div>
-                    </div>
-
-
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label >Tổng tiền</label>
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <p id="tongTien"></p>
-                        </div>
-                    </div>
-
-                    <div class="row ">
-                        <div class="col-md-6 ml-3">
-                            <label>Tiền khách trả  </label>
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <p id="tienKhachTra"></p>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="row ">
-                        <div class="col-md-6">
-                            <label>Tiền trả lại</label>
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <p id="tienTraLai">10000</p>
-                        </div>
-                    </div>
-
-                    <div class="row" >
-                        <div class="col-md-4">
-                            <button class="btn btn-success" style="width: 100px" id="btn-luu-hoa-don">Lưu hóa đơn</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-primary" style="width: 100px" id="btn-in">In </button>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-danger" style="width: 100px" id="btn-xuat-excel">Xuất excel</button>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>-->
-
-
-</section>
-<!-- /.content -->
 <script>
     $(document).ready(function () {
         $('.js-example-basic-single').select2({ width: 'resolve' });

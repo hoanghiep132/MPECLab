@@ -2,6 +2,14 @@ async function nhanVienFindAll() {
     return ajaxGet(`v1/admin/nhan-vien/find-all?size=9999`);
 }
 
+async function findNhanVienById(id=0){
+    return ajaxGet(`v1/admin/nhan-vien/find-by-id?id=${id}`);
+}
+
+async function findNguoiDungPhongBanByNhanVienId(id=0){
+    return ajaxGet(`v1/admin/nguoi-dung-phong-ban-chuc-vu-vai-tro/find-by-nguoi-dung-id?nguoi-dung-id=${id}`)
+}
+
 async function viewSelectNhanVien(selector, all = true) {
     let view = all ? `<option value="0">Tất cả</option>` : "";
     await nhanVienFindAll().then(rs => {

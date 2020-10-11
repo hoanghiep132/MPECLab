@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<script src="resources/pages/thong_tin_header/ajax_header.js"></script>
+<script src="resources/model/nhan_vien/ajax_nhan_vien.js"></script>
+
 <header class="main-header">
     <!-- Logo -->
-    <a href="#" class="logo"><b>Đức</b> Quý</a>
+    <a href="#" class="logo"><b id="name-title">Đức Quý </b></a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -15,13 +18,13 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
-        <div class="user-panel">
+        <div class="user-panel" style="margin-top:-20px;">
             <div class="pull-left image">
-                <img src="./dist/img/imgquy.png" class="img-circle" alt="User Image" />
+                <img id="avatar" src="./dist/img/imgquy.png" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                <p>Nguyễn Đức Quý</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Nhân viên</a>
+                <p id="name-emp" style="font-size: 16px;">Nguyễn Đức Quý</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> <span id="role" style="font-size: 14px;">Nhân viên</span></a>
             </div>
         </div>
         <!-- search form -->
@@ -39,7 +42,7 @@
         <ul class="sidebar-menu">
             <li class="active">
 
-                <a href="trang-dau">
+                <a href="tong-quan">
                     <i class="fa fa-dashboard"></i> <span>Tổng quan</span>
                 </a>
             </li>
@@ -79,7 +82,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="danh-sach-nhap-hang"><i class="fa fa-circle-o"></i> Nhập hàng</a></li>
-                    <li><a href="danh-sach-hoa-don-de-tra"><i class="fa fa-circàngle-o"></i> Khách trả h</a></li>
+                    <li><a href="danh-sach-hoa-don-de-tra"><i class="fa fa-circle-o"></i> Trả hàng cho khách</a></li>
                     <li><a href="danh-sach-phieu-nhap-de-tra"><i class="fa fa-circle-o"></i> Trả hàng cho nhà cung cấp</a></li>
 
                 </ul>
@@ -153,7 +156,7 @@
                     <i class="fa fa-edit"></i> <span>Phòng chat</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
-            
+
             </li>
         </ul>
     </section>
@@ -165,14 +168,14 @@
         <div class="notileft">
             <span>Thông báo</span>
         </div>
-<%--        <marquee id="marq" scrollamount="10" direction="left" loop="infinite" scrolldelay="0" behavior="scroll"--%>
-<%--                 onmouseover="this.stop()" onmouseout="this.start()" class="notiright">--%>
-<%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
-<%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
-<%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
-<%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
-<%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
-<%--        </marquee>--%>
+        <%--        <marquee id="marq" scrollamount="10" direction="left" loop="infinite" scrolldelay="0" behavior="scroll"--%>
+        <%--                 onmouseover="this.stop()" onmouseout="this.start()" class="notiright">--%>
+        <%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
+        <%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
+        <%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
+        <%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
+        <%--                        <span>- Doanh nghiệp A bị mất kết nối</span>--%>
+        <%--        </marquee>--%>
     </section>
 
-    <!-- Right side column. Contains the navbar and content of the page -->
+<!-- Right side column. Contains the navbar and content of the page -->

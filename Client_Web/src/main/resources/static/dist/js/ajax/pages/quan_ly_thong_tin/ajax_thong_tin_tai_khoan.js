@@ -71,6 +71,7 @@ $(function () {
     deleteTaiKhoan();
     clickThemTaiKhoan();
     lockTaiKhoan();
+    taiExcelTK();
 })
 
 function changeSelectChiNhanhMoi() {
@@ -94,7 +95,6 @@ function callSearchTaiKhoan(chiNhanhId = 0, text = "") {
             arrElements = rs.content;
             console.log(arrElements);
             currentPageTaiKhoan = 1;
-            console.log(rs);
             viewDataTaiKhoan(1);
             $("#click-load-data").unbind("click").click(function () {
                 console.log("click load data");
@@ -159,10 +159,9 @@ function viewDataTaiKhoan(page) {
                                </div>
                               </td>
                                     <td>
-                                   <img src="http://localhost:8181/api/v1/admin/tai-khoan/qrcode/${data.nguoiDung.id}" width="100px" height="100px">
+                                   <img src="http://localhost:8181/api/v1/admin/tai-khoan/qrcode?id=${data.nguoiDung.id}" width="100px" height="100px">
                                    </td>
                             </tr>`)
-        console.log(arrElements);
     } else {
         view = '<tr><td colspan="9"><strong>Không có thông tin thích hợp!</strong></td></tr>';
     }
@@ -210,6 +209,7 @@ function clickElementTableTaiKhoan() {
     $(dataTable).find("tr:not(#click-load-data)").unbind("click").click(function () {
         inputHoVaTen.focus();
         btnCapNhap.toggle();
+        console.log(this);
         let valIndex = $(this).attr("data-index");
         console.log(arrElements[valIndex - 0]);
         elementTaiKhoan = arrElements[valIndex - 0];
@@ -546,16 +546,16 @@ function lockTaiKhoan() {
 
 
 function viewInforelementTaiKhoan() {
-    inputMaTaiKhoan.val(viewField(elementTaiKhoan.nguoiDung.maTaiKhoan));
-    inputHoVaTen.val(viewField(elementTaiKhoan.nguoiDung.hoVaTen));
-    inputTaiKhoan.val(viewField(elementTaiKhoan.nguoiDung.taiKhoan));
-    inputEmail.val(viewField(elementTaiKhoan.nguoiDung.email));
-    inputSDT.val(viewField(elementTaiKhoan.nguoiDung.soDienThoai));
-    inputDiaChi.val(viewField(elementTaiKhoan.nguoiDung.diaChi));
-    inputNgaySinh.val(viewField(elementTaiKhoan.nguoiDung.ngaySinh));
-    inputTGKH.val(viewField(elementTaiKhoan.nguoiDung.thoiGianKhoiTao));
-    inputTGKT.val(viewField(elementTaiKhoan.nguoiDung.thoiGianKichHoat));
-    inputTGHH.val(viewField(elementTaiKhoan.nguoiDung.thoiGianHetHan));
+    inputMaTaiKhoan.val(viewField(elementTaiKhoan.maTaiKhoan));
+    inputHoVaTen.val(viewField(elementTaiKhoan.hoVaTen));
+    inputTaiKhoan.val(viewField(elementTaiKhoan.taiKhoan));
+    inputEmail.val(viewField(elementTaiKhoan.taiKhoan));
+    inputSDT.val(viewField(elementTaiKhoan.soDienThoai));
+    inputDiaChi.val(viewField(elementTaiKhoan.diaChi));
+    inputNgaySinh.val(viewField(elementTaiKhoan.ngaySinh));
+    inputTGKH.val(viewField(elementTaiKhoan.thoiGianKhoiTao));
+    inputTGKT.val(viewField(elementTaiKhoan.thoiGianKichHoat));
+    inputTGHH.val(viewField(elementTaiKhoan.thoiGianHetHan));
 
     if (elementTaiKhoan.gioiTinh==1){
         $('#gTNam').prop('checked', true);
@@ -583,9 +583,23 @@ function viewInforelementTaiKhoan() {
         $('#khoa').prop('checked', false);
     }
 
-    let viewQR = `<img src="http://localhost:8181/api/v1/admin/tai-khoan/qrcode/${elementTaiKhoan.nguoiDung.id}" width="100px" height="100px">`;
+    let viewQR = `<img src="http://localhost:8181/api/v1/admin/tai-khoan/qrcode/${elementTaiKhoan.id}" width="100px" height="100px">`;
     $("#qrcode").html(viewQR);
 
     anhDaiDien.value = "";
+}
+
+function taiExcelTK() {
+    $('#btn-excel').on('click', function () {
+        console.log("dstk");
+        ajaxGet('v1/admin/tai-khoan/excel?list-tai-khoan=' + arrElements.map(taiKhoan => taiKhoan.id))
+            .then(rs => {
+                window.open(rs.data, '_blank');
+            }).catch(ex => {
+            console.log(ex);
+            alterDanger("Tạo file excel thất bại");
+        })
+    });
+    clickPrintElement(".ttcttk");
 }
 

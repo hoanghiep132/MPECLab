@@ -5,6 +5,7 @@
 <script src="resources/model/nhan_vien/ajax_nhan_vien.js" type="text/javascript"></script>
 <script src="resources/model/hang_hoa/ajax_hang_hoa.js" type="text/javascript"></script>
 <script src="resources/dist/js/ajax/pages/quan_ly_giao_dich/nhap_hang/ajax_chi_tiet_nhap_hang.js" type="text/javascript"></script>
+<script src="resources/model/nhan_vien/ajax_nhan_vien.js"></script>
 
 <style>
     .thong-tin-phieu {
@@ -132,7 +133,7 @@
                     <div>
                         <strong class="m-r-1">Tổng tiền:</strong> <input id="tong-tien" disabled="true" value="0">
                         <strong class="m-r-1">Tiền đã trả:</strong> <input type="number" class="none-arrow" id="tien-khach-tra">
-                        <strong class="m-r-1">Tiền phải  trả:</strong> <input type="number" id="tien-tra-lai" disabled="true">
+                        <strong class="m-r-1">Tiền còn phải trả:</strong> <input type="number" id="tien-tra-lai" disabled="true">
                     </div>
                 </div>
             </div>

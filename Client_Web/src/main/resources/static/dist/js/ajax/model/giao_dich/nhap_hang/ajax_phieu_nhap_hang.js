@@ -1,11 +1,19 @@
 var arrTrangThaiPhieuNhap = ["Lưu tạm", "Chưa hoàn thành", "Hoàn thành"];
 
-async function phieuNhapHangSearch(maPhieuNhap = "", ngayDau = null, ngayCuoi = null, nhaCungCapid = 0, page = 1, size = 10) {
-    return ajaxGet(`v1/admin/phieu-nhap-hang/search?ma-phieu-nhap=${maPhieuNhap}${ngayDau == null ? "" : `&ngay-dau=${ngayDau}`}${ngayCuoi == null ? "" : `&ngay-cuoi=${ngayCuoi}`}&nha-cung-cap-id=${nhaCungCapid}&page=${page}&size=${size}`);
+async function phieuNhapHangSearch(maPhieuNhap = "", ngayDau = null, ngayCuoi = null, nhaCungCapid = 0,trangThai = -1, page = 1, size = 10) {
+    return ajaxGet(`v1/admin/phieu-nhap-hang/search?ma-phieu-nhap=${maPhieuNhap}${ngayDau == null ? "" : `&ngay-dau=${ngayDau}`}${ngayCuoi == null ? "" : `&ngay-cuoi=${ngayCuoi}`}&nha-cung-cap-id=${nhaCungCapid}&trang-thai=${trangThai}&page=${page}&size=${size}`);
 }
 
 async function phieuNhapHangDelete(idPhieuNhap) {
     return ajaxDelete(`v1/admin/phieu-nhap-hang/delete?id=${idPhieuNhap}`);
+}
+
+async function setTrangThaiPhieuNhapHang(id,trangThai){
+    return ajaxPut(`v1/admin/phieu-nhap-hang/trang-thai?id=${id}&trang-thai=${trangThai}`);
+}
+
+async function searchPhieuNhapHangByChiNhanh(chiNhanhId,text="",page=1,size=10){
+    return ajaxGet(`v1/admin/phieu-nhap-hang-chi-tiet/search-by-chi-nhanh-and-text?chi-nhanh-id=${chiNhanhId}&text=${text}&page=${page}&size=${size}`);
 }
 
 async function phieuNhapHangFindById(id) {

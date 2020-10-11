@@ -4,8 +4,7 @@ var searchParams = new URLSearchParams(window.location.search);
 let tongTien;
 
 var param = searchParams.get('hoa-don-id');
-console.log(searchParams);
-console.log(param);
+var nguoiDungId=window.sessionStorage.getItem("id");
 
 $(function () {
 
@@ -55,16 +54,13 @@ function clickUpload() {
             + (currentdate.getMinutes() < 10 ? "0" : "") + currentdate.getMinutes() + ":"
             + (currentdate.getSeconds() < 10 ? "0" : "") + currentdate.getSeconds();
         let tienTraKhach = $("#canTra")[0].textContent;
-        let maPhieu = Math.floor(Math.random() * 10000);
         var phieuTraHang = {
-            ma : "PTK-000" + maPhieu,
             thoiGian: datetime,
             tienTraKhach: tienTraKhach,
             lyDo: "Hết hạn sử dụng",
             ghiChu: ""
         };
         console.log("Phieu Tra Hang" +JSON.stringify(phieuTraHang));
-        let nguoiDungId = 1;
         uploadPhieuTraKhach(nguoiDungId, phieuTraHang).then(rs => {
             if (rs.message === "uploaded") {
                 phieuTraKhachId = rs.data.id;
@@ -89,6 +85,7 @@ function clickUpload() {
                uploadPhieuTraKhachChiTiet(phieuTraKhachForm).then(r => {
                     if (r.message === "success") {
                         alterSuccess("Thêm phiếu trả hàng cho khách thành công", TIME_ALTER);
+                        clickPrintElement(".kth");
                     } else {
                         console.log("Error : " + r.message);
                         alterDanger("Thêm phiếu trả hàng cho khách không thành công", TIME_ALTER);
@@ -190,6 +187,17 @@ function enterThayDoiSoLuong() {
             }
         }
     })
+}
+
+
+function clickPrintElement(selector) {
+    $('#btn-print').on("click", function () {
+        console.log("vao day");
+        $(selector).printThis({
+            importCSS: true,
+            printDelay: 333,
+        });
+    });
 }
 
 

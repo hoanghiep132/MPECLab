@@ -1,8 +1,6 @@
 var selectChiNhanh,inputSearch,btnSearch,table, table2;
 var arr  = [];
 var arr2 = [];
-var arrTrangThaiPhieuNhap = ["Lưu tạm", "Chưa hoàn thành", "Hoàn thành"];
-
 const TRANG_THAI_PHIEU_NHAP_DE_TRA = ["Đang Chờ", "Đã trả"];
 function viewTrangThai(phieuTraHang) {
     return TRANG_THAI_PHIEU_NHAP_DE_TRA[phieuTraHang.trangThai];
@@ -13,12 +11,6 @@ function viewThoiGian(thoiGian){
                 + thoiGian.substring(5,7) + "/" + thoiGian.substring(0,4);
     return tg;
 }
-
-function viewTrangThaiPhieuNhap(phieuNhap) {
-    let {trangThai} = phieuNhap;
-    return trangThai == null ? "" : arrTrangThaiPhieuNhap[trangThai - 0];
-}
-
 
 $(function () {
 
@@ -133,7 +125,7 @@ function setViewPhieuNhap(pageNumber) {
                     <td>${viewField(item.tongTien)}</td>
                     <td>${viewField(item.tienPhaiTra)}</td>
                     <td>${viewField(item.tienDaTra)}</td>
-                    <td>${viewTrangThaiPhieuNhap(item)}</td>
+                    <td>${viewTrangThai(item)}</td>
                     <td><button><a href="/phieu-nhap-chi-tiet-de-tra?phieu-nhap-id=${item.id}" target="_blank">Chọn</a></button></td>
                 </tr>`);
         if(len < 10) {
@@ -194,7 +186,6 @@ function callSearch(chiNhanhId = 0 , text = "%") {
 function setView(pageNumber) {
     let view = `<tr>
                 <th>STT</th>
-                <th>Mã Phiếu</th>
                 <th>Nhà cung cấp</th>
                 <th>Thời gian</th>
                 <th>Nhân viên </th>
@@ -208,7 +199,6 @@ function setView(pageNumber) {
     if (len > 0) {
         view += arr.map((item, index) =>  `<tr data-index="${index}" class="click-thuong-hieu">
                     <td data-id="${viewField(item.id)}">${(pageNumber - 1)*10 + index + 1}</td>
-                    <td>${viewField(item.maPhieu)}</td>
                     <td>${viewField(item.nhaCungCap.ten)}</td>
                     <td>${viewThoiGian(item.thoiGian)}</td>
                     <td>${viewField(item.nguoiDung.hoVaTen)}</td>
@@ -229,4 +219,5 @@ function setView(pageNumber) {
         view += `<tr><td colspan="9">Không có thông tin phù hợp</td></tr>`
     }
     table.html(view);
+
 }

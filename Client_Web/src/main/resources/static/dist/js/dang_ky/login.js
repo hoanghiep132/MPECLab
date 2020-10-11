@@ -3,6 +3,14 @@ function ajaxLogin(data){
     return ajaxPost(  "v1/public/user/login",data);
 }
 
+function findByTaiKhoan(taiKhoan) {
+    return ajaxGet(`v1/public/user/find-nguoi-dung-by-tai-khoan?tai-khoan=${taiKhoan}`,1);
+}
+
+async function findNguoiDungPhongBanByNhanVienId(id=0){
+    return ajaxGet(`v1/admin/nguoi-dung-phong-ban-chuc-vu-vai-tro/find-by-nguoi-dung-id?nguoi-dung-id=${id}`)
+}
+
 $(document).ready(function () {
 
     $('#btn-login').click(function (e) {
@@ -40,19 +48,17 @@ $(document).ready(function () {
     });
 });
 
-
-
 function onSubmit(event){
     var username=$('#username').val();
     var password=$('#password').val();
     console.log(username);
     console.log(password);
     if(username===null || password===null){
-        alert("vui lòng nhập đầy đủ username và password!");
+        alterWarning("vui lòng nhập đầy đủ username và password!");
         return;
     }
     else if(password.length<8){
-        alert("password nhập thiếu kí tự");
+        alterWarning("password nhập thiếu kí tự");
         return;
     }
 
@@ -61,16 +67,24 @@ function onSubmit(event){
         password:password
     }
     console.log(LoginForm);
-
+    findByTaiKhoan(username).then((rs2)=>{
+        window.sessionStorage.setItem("id",rs2.data.id);
+        window.sessionStorage.setItem("taiKhoan",rs2.data.taiKhoan);
+        window.sessionStorage.setItem("email",rs2.data.email);
+        console.log(rs2);
+        console.log("a2a");
+    })
+var check=0;
     ajaxLogin(LoginForm).then((rs)=>{
-        console.log(rs);
         if(rs.message=="login success"){
-            // location.replace(urlApi+'organization');
+            location.replace("http://localhost:8282/tong-quan");
             window.sessionStorage.setItem("token",rs.data);
-            location.href = "danh-sach-hang-hoa";
+            document.cookie = `token=${rs.data}`;
+            console.log("aa");
+           check=1;
         }
         else {
-            alert("Đăng nhập thất bại");
+            alterWarning("Đăng nhập thất bại");
         }
     }).catch(er=>{
         console.log(er);
@@ -78,10 +92,9 @@ function onSubmit(event){
         $('.login-box-msg').css('color','red');
     })
 
+
+
 }
-
-
-
 
 function errMess(jqXHR, textStatus, errorThrown) {
     console.log('jqXHR:');

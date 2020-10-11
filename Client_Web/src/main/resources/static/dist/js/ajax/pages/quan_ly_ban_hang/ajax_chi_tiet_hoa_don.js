@@ -2,7 +2,7 @@
 var arr = [];
 var count = 0;
 var xoaCount = 0;
-
+var nguoiDungId=window.sessionStorage.getItem("id");
 $(function () {
     table=$("#table-hang-hoa");
     btnThanhToan = $("#btn-thanh-toan");
@@ -34,7 +34,7 @@ function searchHangHoa() {
             url : "http://localhost:8181/api/v1/admin/hang-hoa/search-text",
             timeout: 30000,
             data: function (params) {
-                var query = {
+                let query = {
                     text : params.term != null ? params.term : "",
                     page : 1,
                     size : 5
@@ -43,14 +43,23 @@ function searchHangHoa() {
                 // Query parameters will be ?text=[term]&page=1&size=5
             },
             processResults: function (data) {
-                var rs = [];
-                $.each(data.data.currentElements, function(idx, item) {
-                    rs.push({
-                        'id': item.id,
-                        'text': item.tenHangHoa
+                if(data.message == "not found"){
+                    let rs = {
+                        'text' : "Không tìm thấy hàng hóa"
+                    }
+                    return {
+                        results: rs
+                    };
+                }else{
+                    let rs = [];
+                    $.each(data.data.currentElements, function(idx, item) {
+                        rs.push({
+                            'id': item.id,
+                            'text': item.tenHangHoa
+                        });
                     });
-                });
-                return { results: rs };
+                    return { results: rs };
+                }
             }
         }
     });
@@ -75,40 +84,51 @@ function searchkhachHang(){
                 return query;
             },
             processResults: function (data) {
-                var rs = [];
-                $.each(data.data.currentElements, function(idx, item) {
-                    rs.push({
-                        'id': item.id,
-                        'text': item.tenKhachHang
+                if(data.message == "not found"){
+                    let rs = {
+                        'text' : "Không tìm thấy khách hàng"
+                    }
+                    return {
+                        results: rs
+                    };
+                }else{
+                    var rs = [];
+                    $.each(data.data.currentElements, function(idx, item) {
+                        rs.push({
+                            'id': item.id,
+                            'text': item.tenKhachHang
+                        });
                     });
-                });
-                rs.push({
-                    'id': -1,
-                    'text': "+ Thêm mới khách hàng"
-                })
-                return { results: rs };
+                    rs.push({
+                        'id': -1,
+                        'text': "+ Thêm mới khách hàng"
+                    })
+                    return { results: rs };
+                }
             }
         }
     });
 }
+var urlAnh= "localhost:8181/BackEnd/resources/file_upload"
 
 function chooseHH() {
     $("#search-hang-hoa").change(function () {
-        var id = $(this).find(':selected')[0].value;
+        let id = $(this).find(':selected')[0].value;
         findFirstHH(id).then(sample => {
-            arr.push(sample.data.id);
-            findHangHoa(id).then(rs =>{
-                let len = arr.length;
-                let imgUrl = rs.data.urlHinhAnh1;
-                if(imgUrl === null || imgUrl === ""){
-                    imgUrl = "https://scontent.fhan3-1.fna.fbcdn.net/v/t1.0-9/24058951_893563900825779_3593682861528713749_n.jpg?_nc_cat=109&_nc_sid=85a577&_nc_ohc=NVVMeiTejuIAX8y4RZm&_nc_ht=scontent.fhan3-1.fna&oh=e04d1043ff741d0afa14943b80e7edfb&oe=5F1D59C9";
-                }
-                count++; // stt san pham
-                let row = `<tr id="row-${len}">
+            if(sample.message == "found"){
+                arr.push(sample.data.id);
+                findHangHoa(id).then(rs =>{
+                    let len = arr.length;
+                    let imgUrl = rs.data.urlHinhAnh1;
+                    if(imgUrl === null || imgUrl === ""){
+                        imgUrl = "https://scontent.fhan3-1.fna.fbcdn.net/v/t1.0-9/24058951_893563900825779_3593682861528713749_n.jpg?_nc_cat=109&_nc_sid=85a577&_nc_ohc=NVVMeiTejuIAX8y4RZm&_nc_ht=scontent.fhan3-1.fna&oh=e04d1043ff741d0afa14943b80e7edfb&oe=5F1D59C9";
+                    }
+                    count++; // stt san pham
+                    let row = `<tr id="row-${len}">
                     <td data-id="${viewField(rs.id)}" id="stt-${len}" style="padding-top: 40px;">${viewField(count)}</td>
                     <td>
                         <div class="hang-hoa-phieu-nhap">
-                            <img src="${imgUrl}" class="img-hang-hoa-phieu-nhap">
+                            <img src="${viewSrc(imgUrl)}" class="img-hang-hoa-phieu-nhap">
                             <div class="ten-hang-hoa">${viewField(rs.data.tenHangHoa)}</div>
                         </div>
                     </td>
@@ -132,58 +152,71 @@ function chooseHH() {
                         </button>
                     </td>
                 </tr>`;
-                let tongTienCurr = parseFloat($("#tong-tien")[0].value);
-                let tongTien = tongTienCurr + sample.data.giaBan;
-                $("#tong-tien").val(tongTien);
-                table.append(row);
-                $(`.select-don-vi-${len}`).select2({
-                    placeholder: 'Chọn đơn vị',
-                    ajax:{
-                        type: 'GET',
-                        headers: {
-                            "Authorization": ss_lg
-                        },
-                        dataType: "json",
-                        url : "http://localhost:8181/api/v1/admin/don-vi-hang-hoa/find-by-hang-hoa-id",
-                        timeout: 30000,
-                        data: function () {
-                            var query = {
-                                hangHoaId : id,
-                                page : 1,
-                                size : 5
-                            };
-                            return query;
-                        },
-                        processResults: function (data) {
-                            var rs = [];
-                            $.each(data.data.currentElements, function(idx, item) {
-                                rs.push({
-                                    'id': item.id,
-                                    'text': item.donVi.tenDonVi
-                                });
-                            });
-                            return { results: rs };
-                        }
-                    }
-                });
-                $.ajax({
-                    type: 'GET',
-                    dataType: "json",
-                    url: 'http://localhost:8181/api/v1/admin/don-vi-hang-hoa/find-by-id?id=' + sample.data.donViHangHoa.id
-                }).then(function (data) {
-                    // create the option and append to Select2
-                    var option = new Option(data.data.donVi.tenDonVi, data.data.id, true, true);
-                    $(`.select-don-vi-${len}`).append(option).trigger('change');
-
-                    // manually trigger the `select2:select` event
-                    $(`.select-don-vi-${len}`).trigger({
-                        type: 'select2:select',
-                        params: {
-                            data: data
+                    let tongTienCurr = parseFloat($("#tong-tien")[0].value);
+                    let tongTien = tongTienCurr + sample.data.giaBan;
+                    $("#tong-tien").val(tongTien);
+                    table.append(row);
+                    $(`.select-don-vi-${len}`).select2({
+                        placeholder: 'Chọn đơn vị',
+                        ajax:{
+                            type: 'GET',
+                            headers: {
+                                "Authorization": ss_lg
+                            },
+                            dataType: "json",
+                            url : "http://localhost:8181/api/v1/admin/don-vi-hang-hoa/find-by-hang-hoa-id",
+                            timeout: 30000,
+                            data: function () {
+                                var query = {
+                                    hangHoaId : id,
+                                    page : 1,
+                                    size : 5
+                                };
+                                return query;
+                            },
+                            processResults: function (data) {
+                                if(data.message == "found"){
+                                    let rs = [];
+                                    $.each(data.data.currentElements, function(idx, item) {
+                                        rs.push({
+                                            'id': item.id,
+                                            'text': item.donVi.tenDonVi
+                                        });
+                                    });
+                                    return { results: rs };
+                                }else{
+                                    let rs = {
+                                        'text' : "Không tìm đơn vị phù hợp"
+                                    }
+                                    return {
+                                        results: rs
+                                    };
+                                }
+                            }
                         }
                     });
+                    $.ajax({
+                        type: 'GET',
+                        dataType: "json",
+                        url: 'http://localhost:8181/api/v1/admin/don-vi-hang-hoa/find-by-id?id=' + sample.data.donViHangHoa.id
+                    }).then(function (data) {
+                        // create the option and append to Select2
+                        var option = new Option(data.data.donVi.tenDonVi, data.data.id, true, true);
+                        $(`.select-don-vi-${len}`).append(option).trigger('change');
+
+                        // manually trigger the `select2:select` event
+                        $(`.select-don-vi-${len}`).trigger({
+                            type: 'select2:select',
+                            params: {
+                                data: data
+                            }
+                        });
+                    });
                 });
-            });
+            }else{
+                console.log(sample.message );
+                alterDanger("Sản phầm chưa được thiết lập giá");
+            }
         });
     });
 }
@@ -207,7 +240,7 @@ function chooseDv() {
                 $("#tong-tien").val(tongTien);
                 arr[stt-1] = rs.data.id;
             }else{
-                alterDanger("Xảy ra lỗi hệ thống");
+                alterDanger("Sản phầm chưa được thiết lập giá");
             }
         })
     })
@@ -303,7 +336,7 @@ function deleteHH() {
         let tongTienMoi = tongTienCu - parseFloat($(`.tong${stt}`)[0].textContent);
         $("#tong-tien").val(tongTienMoi);
         if($("#tien-khach-tra")[0].value != 0){
-            let tienTraLaiKhach =  $("#tien-khach-tra")[0].value - tongTien;
+            let tienTraLaiKhach =  $("#tien-khach-tra")[0].value - tongTienMoi;
             $("#tien-tra-lai").val(tienTraLaiKhach);
         }
         let temp = 1;
@@ -324,19 +357,17 @@ function khachTraTien() {
             let tienKhachTra = parseFloat($("#tien-khach-tra")[0].value);
             let tongTien = parseFloat($("#tong-tien")[0].value);
             let tienTraLaiKhach = tienKhachTra - tongTien;
-            if(tienTraLaiKhach >= 0){
-                $("#tien-tra-lai").val(tienTraLaiKhach);
-            }else{
-                alterDanger("Số tiền khách đưa ít hơn hóa đơn");
+            if(tienTraLaiKhach < 0){
+                alterWarning("Số tiền khách đưa ít hơn tổng tiền của hóa đơn");
             }
+            $("#tien-tra-lai").val(tienTraLaiKhach);
         }
     })
 }
 
+
 function thanhToan() {
     btnThanhToan.on("click", function () {
-        let nguoiDungId = 1;
-        let chiNhanhId = 1;
         let khachHangId = $("#select-khach-hang").find(':selected')[0].value;
         if(khachHangId <= 0){
             alterWarning("Bạn chưa chọn khách Hàng");
@@ -347,64 +378,109 @@ function thanhToan() {
                 alterWarning("Vui lòng điền số tiền khách trả");
             }else{
                 let tienTraKhach = $("#tien-tra-lai")[0].value;
-                let maHD = Math.floor(Math.random() * 10000);
-                let ghiChu = $("#bimo4")[0].value;
-                var hoaDon = {
-                    ma : "HD-000" + maHD,
-                    tongTien : tongTien,
-                    tienKhachTra : tienKhachTra,
-                    tienTraLaiKhach : tienTraKhach,
-                    ghiChu: ghiChu,
-                    trangThai : 1
-                }
-                uploadHoaDon(nguoiDungId,khachHangId,chiNhanhId,hoaDon).then(rs =>{
-                    if(rs.message === "uploaded"){
-                        let id = rs.data.id;
-                        console.log(JSON.stringify(rs.data));
-                        let giaBanList = [];
-                        for(i = 0; i < arr.length;i++){
-                            if(arr[i] != 0){
-                                giaBanList.push(arr[i]);
-                            }
+                let tienNo = tienTraKhach.substr(1,tienTraKhach.length);
+                if(tienTraKhach < 0){
+                    $("#modal-cho-no .modal-body").text(`Số tiền khách trả ít hơn tổng tiền hóa đơn. Bạn có chắc chắn cho khách hàng nợ số tiền ${tienNo} không?`);
+                    $("#modal-cho-no").modal('toggle');
+                    $("#confirm-btn").click(function () {
+                        let ghiChu = $("#bimo4")[0].value;
+                        var hoaDon = {
+                            maHoaDon : "",
+                            tongTien : tongTien,
+                            tienKhachTra : tienKhachTra,
+                            tienTraLaiKhach : tienTraKhach,
+                            ghiChu: ghiChu,
+                            trangThai : 1
                         }
-                        let hoaDonChiTietList = [];
-                        let count = 0;
-                        for(i = 1; i <= arr.length;i++){
-                            if(arr[i-1] != 0 ){
-                                let sl = $(`.soLuong${i}`)[0].value;
-                                let thanhTien = parseFloat($(`.tong${i}`)[0].textContent);
-                                hoaDonChiTietList[i-1-count] = {
-                                    soLuong: sl,
-                                    tongGia: thanhTien,
-                                    xoa : false
-                                }
-                            }else{
-                                count++;
-                            }
+                        uploadData(hoaDon,false);
+                        let phieuNo = {
+                            tongNo : parseFloat(tienNo)
                         }
-                        let hoaDonForm = {
-                            hoaDonId : id,
-                            lichSuGiaBanIdList : giaBanList,
-                            hoaDonChiTietList: hoaDonChiTietList
-                        }
-                        uploadHoaDonChiTiet(hoaDonForm).then(rs => {
-                            if(rs.message === "success"){
-                                alterSuccess("Thêm hóa đơn mới thành công");
-                            }else{
-                                console.log(rs.message);
-                                alterDanger("Thêm hóa đơn mới không thành công");
-                            }
-                        });
-                        btnThanhToan.attr('disabled',true);
-                        $("#btn-xoa-hoa-don").attr('disabled',true);
-                    }else{
-                        console.log(rs.message);
-                        alterDanger("Thêm hóa đơn mới không thành công");
+                    })
+                }else{
+                    let ghiChu = $("#bimo4")[0].value;
+                    var hoaDon = {
+                        maHoaDon : "",
+                        tongTien : tongTien,
+                        tienKhachTra : tienKhachTra,
+                        tienTraLaiKhach : tienTraKhach,
+                        ghiChu: ghiChu,
+                        trangThai : 1
                     }
-                })
+                    uploadData(hoaDon,true);
+                }
             }
         }
     })
+}
+
+function uploadData(hoaDon = {}, check) {
+    let khachHangId = $("#select-khach-hang").find(':selected')[0].value;
+    findNguoiDungPhongBanByNhanVienId(nguoiDungId).then(rs => {
+        let chiNhanhId = rs.data.phongBan.chiNhanh.id;
+        uploadHoaDon(nguoiDungId,khachHangId,chiNhanhId,hoaDon).then(rs =>{
+            if(rs.message === "uploaded"){
+                let id = rs.data.id;
+                let giaBanList = [];
+                for(i = 0; i < arr.length;i++){
+                    if(arr[i] != 0){
+                        giaBanList.push(arr[i]);
+                    }
+                }
+                let hoaDonChiTietList = [];
+                let count = 0;
+                for(i = 1; i <= arr.length;i++){
+                    if(arr[i-1] != 0 ){
+                        let sl = $(`.soLuong${i}`)[0].value;
+                        let thanhTien = parseFloat($(`.tong${i}`)[0].textContent);
+                        hoaDonChiTietList[i-1-count] = {
+                            soLuong: sl,
+                            tongGia: thanhTien,
+                            xoa : false
+                        }
+                    }else{
+                        count++;
+                    }
+                }
+                let hoaDonForm = {
+                    hoaDonId : id,
+                    lichSuGiaBanIdList : giaBanList,
+                    hoaDonChiTietList: hoaDonChiTietList
+                }
+                uploadHoaDonChiTiet(hoaDonForm).then(rs2 => {
+                    if(check === false){
+                        let tienNo = parseFloat(hoaDon.tienTraLaiKhach.substr(1,hoaDon.tienTraLaiKhach.length));
+                        let phieuNo ={
+                            tongNo : tienNo
+                        }
+                        uploadPhieuNo(khachHangId,rs.data.id,nguoiDungId,phieuNo).then(rsPhieuNo => {
+                            sumPhieuNo(khachHangId).then(rsSum =>{
+                                let tenKhachHang = $("#ten-khach-hang")[0].value;
+                                let text = `<span>Khách hàng ${tenKhachHang} nợ thêm số tiền là ${tienNo}</span>
+                                             <br>
+                                            <span>Tổng số nợ hiện tại là : ${rsSum.data} VNĐ</span>`;
+                                $("#modal-display-no .modal-body").html(text);
+                                $("#modal-display-no").modal('toggle');
+                            })
+                        })
+                    }else {
+                        if(rs2.message === "success"){
+                            alterSuccess("Thêm hóa đơn mới thành công");
+                            clickPrintElement(".tttk");
+                        }else{
+                            console.log(rs.message);
+                            alterDanger("Thêm hóa đơn mới không thành công");
+                        }
+                    }
+                });
+                btnThanhToan.attr('disabled',true);
+                $("#btn-xoa-hoa-don").attr('disabled',true);
+            }else{
+                console.log(rs.message);
+                alterDanger("Thêm hóa đơn mới không thành công");
+            }
+        })
+    });
 }
 
 function saveKhachHang() {
@@ -463,6 +539,17 @@ function saveKhachHang() {
     })
 }
 
+
+
+function clickPrintElement(selector) {
+    $('#btn-print').on("click", function () {
+        $(selector).printThis({
+            importCSS: true,
+            printDelay: 333,
+        });
+    });
+}
+
 function deleteHD() {
     $("#btn-xoa-hoa-don").on("click",function () {
         for(i=0;i<arr.length;i++){
@@ -485,3 +572,4 @@ function deleteHD() {
         $("#tien-tra-lai").val("");
     })
 }
+

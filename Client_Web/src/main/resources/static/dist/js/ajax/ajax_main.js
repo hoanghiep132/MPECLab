@@ -9,9 +9,11 @@ const TRANG_THAI_PHE_DUYET = ["Chưa duyệt", "Đã duyệt/ Đồng ý", "Đã
 const TIME_ALTER = 3000;
 const MAX = 99999;
 const URL_FILE = "http://localhost:8181/resources/file_upload/";
+
+
 $(function () {
-    ss_lg = sessionStorage.getItem("ss_lg");
-     //checkLogin();
+    ss_lg = sessionStorage.getItem("token");
+    checkLogin();
     buttonBackHistory();
     viewDateVn();
     runSelect2();
@@ -27,13 +29,10 @@ function viewTrangThaiTaiKhoan(taiKhoan) {
     return TRANG_THAI_Tai_Khoan[taiKhoan.trangThai];
 }
 
-
-
 function checkLogin() {
     let pathName = window.location.pathname;
     if(pathName.indexOf("/dang-nhap") === -1 ) {
         if(ss_lg === null) window.location.href = "dang-nhap";
-        //to do
     }
 }
 
@@ -64,7 +63,7 @@ async function ajaxPost(url, data ,option = 1) {
         type: 'POST',
         data: JSON.stringify(data),
         headers: {
-            "Authorization": ""
+            "Authorization": ss_lg
         },
         url: urlBack + url,
         timeout: 30000,
@@ -83,7 +82,7 @@ async function ajaxPut(url, data ,option = 1) {
         type: 'PUT',
         data: JSON.stringify(data),
         headers: {
-            "Authorization": ""
+            "Authorization": ss_lg
         },
         url: urlBack + url,
         timeout: 30000,
@@ -102,7 +101,7 @@ async function ajaxDelete(url, data ,option = 1) {
         type: 'DELETE',
         data: JSON.stringify(data),
         headers: {
-            "Authorization": ""
+            "Authorization": ss_lg
         },
         url: urlBack + url,
         timeout: 30000,
@@ -350,7 +349,7 @@ function viewDateTime(date) {
 }
 
 function viewSrc(src, check) {
-    return url_img+src;
+    return src.indexOf("http") == 0 ? src : url_img + src;
 }
 
 function runOwlCarousel() {

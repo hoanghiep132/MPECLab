@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController {
 
-
     @RequestMapping(value = {"/","/dang-nhap"}, method = RequestMethod.GET)
     public String dangNhap() {
         return "dang-nhap";
@@ -101,6 +100,9 @@ public class MainController {
     @RequestMapping(value = {"/chi-tiet-nhap-hang"}, method = RequestMethod.GET)
     public String chiTietNhapHang() { return "chi-tiet-nhap-hang"; }
 
+    @RequestMapping(value = {"/chi-tiet-nhap-hang-2"}, method = RequestMethod.GET)
+    public String chiTietNhapHang2() { return "chi-tiet-nhap-hang-2"; }
+
     @RequestMapping(value = {"/nhap-hang-chi-tiet"}, method = RequestMethod.GET)
     public String nhapHangChiTiet() { return "nhap-hang-chi-tiet"; }
 
@@ -136,5 +138,8 @@ public class MainController {
 
     @RequestMapping(value = {"/thiet-lap-gia"}, method = RequestMethod.GET)
     public String thietLapGia() { return "thiet-lap-gia"; }
+
+    @RequestMapping(value = {"/tong-quan"}, method = RequestMethod.GET)
+    public String tongQuan() { return "tong-quan"; }
 
 }

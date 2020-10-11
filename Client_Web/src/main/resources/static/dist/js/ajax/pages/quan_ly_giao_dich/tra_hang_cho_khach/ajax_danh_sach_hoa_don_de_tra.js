@@ -1,6 +1,6 @@
 var selectChiNhanh,inputSearch,btnSearch,table;
 var arr  = [];
-const TRANG_THAI_TRA_HANG = ["Đang Chờ", "Đã trả"];
+const TRANG_THAI_TRA_HANG = ["Đã trả","Đang Chờ"];
 function viewTrangThaiTraHang(phieuTraHang) {
     return TRANG_THAI_TRA_HANG[phieuTraHang.trangThai];
 }

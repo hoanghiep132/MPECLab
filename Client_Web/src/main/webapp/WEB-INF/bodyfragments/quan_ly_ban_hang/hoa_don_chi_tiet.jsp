@@ -244,7 +244,14 @@
                         </div>
                     </div>
 
-
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <button class="btn btn-success" style="width: 100px" id="btn-excel">Xuất Excel</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary" style="width: 100px" id="btn-print">In </button>
+                        </div>
+                    </div>
                 </div>
 
             </div>

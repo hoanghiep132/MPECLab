@@ -58,106 +58,120 @@
     <!-- /.modal-dialog -->
 </div>
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container">
-            <div class="row mb-2">
-                <div class="col-12 text-center">
-                    <h2 class="m-0 text-dark">Quản lý thông tin nhân viên</h2>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-            <div class="row justify-content-md-center mt-3">
-
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Chi nhánh</label>
-                        <div class="col-md-8">
-                            <select class="form-control select2bs4 select2-hidden-accessible" id="select-1">
-                                <option value=0>Tất cả các chi nhánh</option>
-                                <option value=1>Chi nhánh 1</option>
-                                <option value=2>Chi nhánh 2</option>
-                                <option value=3>Chi nhánh 3</option>
-                            </select>
-                        </div>
-                    </div>
-
-            </div>
-        </div><!-- /.container-fluid -->
+<!-- Content Wrapper. Contains page content select-1 -->
+<section class="content">
+<div class="buifmaop">
+    <div class="buifmaoptitle">
+        <span class="page-title">Danh sách nhân viên</span>
     </div>
-    <!-- /.content-header -->
+    <div class="buifmaopct">
+        <div class="row">
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row justify-content-md-center m-3">
-                        <div class="col-lg-6">
-                            <div class="form-group row">
-                                <label class=" col-md-4 col-form-label ">Thông tin nhân viên</label>
-                                <div class=" col-md-6 input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Nhập thông tin nhân viên" id="input-text-1">
 
-                                </div>
-                                <div class=" col-md-2">
-                                    <button class="btn btn-secondary" id="btn-1" type="button"><i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 text-right">
-                            <strong>Tổng số nhân viên: <span id="text-1">03</span></strong>
-                        </div>
-                    </div>
+            <div class="col-md-5">
+                <div class="caifop1li">
+                    <label for="select-1">Thuộc chi nhánh</label>
+                    <select class="js-example-basic-single" name="state" id="select-1">
+                        <option value=0>Tất cả</option>
+                        <option value=1>Cocacola</option>
+                        <option value=2>Pepsi</option>
+                        <option value=3>Fanta</option>
+                    </select>
                 </div>
-                <div class="card-body">
-                    <div class="row table-responsive">
-                        <table class="table table-bordered table-hover text-center align-middle">
-                            <thead class="color-main">
-                            <tr>
-                                <th >STT</th>
-                                <th>Mã nhân viên</th>
-                                <th>Tên nhân viên/Nhóm</th>
-                                <th>Trạng thái</th>
-                                <th>Chức năng</th>
-                                <th>QR Code</th>
-                            </tr>
-                            </thead>
-                            <tbody id="data-table">
-                            <%--                            <tr class="color-opan">--%>
-                            <%--                                <td></td>--%>
-                            <%--                                <td><input type="text" class="form-control" placeholder="Nhập mã" id="input-text-2"></td>--%>
-                            <%--                                <td><input type="text" class="form-control" placeholder="Nhập tên" id="input-text-3"></td>--%>
-                            <%--                                <td><input type="text" class="form-control" placeholder="Nhập vị trí" id="input-text-4"></td>--%>
-                            <%--                                <td><input type="text" class="form-control" placeholder="Mô tả" id="input-text-5"></td>--%>
-                            <%--                                <td><input type="text" class="form-control" placeholder="Chưa đăng ký" id="input-text-6"></td>--%>
-                            <%--                                <td><i class="fas fa-signal"></i></td>--%>
-                            <%--                                <td><a href="#"><i class="fas fa-paperclip"></i> Cấu hình</a></td>--%>
-                            <%--                            </tr>--%>
-                            <%--                            <tr>--%>
-                            <%--                                <td>1</td>--%>
-                            <%--                                <td>TB001</td>--%>
-                            <%--                                <td>Camera 01</td>--%>
-                            <%--                                <td>Trước barrier</td>--%>
-                            <%--                                <td>Nhóm thiết bị</td>--%>
-                            <%--                                <td>Loại thiết bị</td>--%>
-                            <%--                                <td>Nhận dạng biển số</td>--%>
-                            <%--                                <td>Đã duyệt/ Đồng ý</td>--%>
-                            <%--                                <td><i class="fas fa-signal text-primary"></i></td>--%>
-                            <%--                                <td><i class="fas fa-paperclip"></i> Cấu hình</td>--%>
-                            <%--                            </tr>--%>
-                            <tr id="click-load-data">
-                                <td colspan="10"><i class="fas fa-arrow-circle-down"></i></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-12 text-center">
-                            <h6 class="m-5 them-moi-tk">Thêm nhân viên  <i class="fa fa-plus-circle" aria-hidden="true"></i></h6>
-                            <h4 class="m-0 text-dark">Thông tin chi tiết nhân viên</h4>
-                        </div>
-                    </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="caifop1li form-group">
+                    <label for="input-text-1">Nhập thông tin tìm kiếm</label>
+                    <input type="text" class="form-control" id="input-text-1">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label style="opacity: 0">btn</label>
+                <button class="btn btn-primary" id="btn-1" style="display: block">Tìm Kiếm</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="buifmaoptb table-responsive">
+        <table class="table table-hover">
+
+                <tr>
+                    <th >STT</th>
+                    <th>Mã nhân viên</th>
+                    <th>Tên nhân viên/Nhóm</th>
+                    <th>Trạng thái</th>
+                    <th>Chức năng</th>
+                    <th>QR Code</th>
+                </tr>
+            <tbody id="data-table">
+
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr id="click-load-data">
+                    <td colspan="10"><i class="fas fa-arrow-circle-down"></i></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-link">
+        <a ><i class="fas fa-plus-circle them-moi-tk"></i></a>
+    </div>
+    <style>
+        .form-group {
+            margin-bottom: 10px !important;
+            padding-bottom: 2px !important;
+        }
+    </style>
+
+
+    <div class="row mb-3">
+        <div class="col-12 text-center">
+            <h4 id="1" class="m-0 text-dark">Thông tin chi tiết nhân viên</h4>
+        </div>
+    </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -304,16 +318,26 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="row text-center">
-                        <button type="button" class="btn btn-success mr-1 show-them-moi" id="btn-3" style="display: none">Thêm mới</button>
-                        <button type="button" class="btn btn-secondary mr-1" id="btn-4" style="display: none">Cập nhập</button>
-                        <button type="button" class="btn btn-secondary mr-1 them-moi" id="btn-2">Làm mới</button>
+                        <button class="btn btn-success mr-1 show-them-moi" id="btn-3" style="display: none">Thêm mới</button>
+                        <button class="btn btn-danger mr-1" id="btn-4" style="display: none">Cập nhập</button>
+                        <button class="btn btn-warning mr-1 them-moi" id="btn-2">Làm mới</button>
                         <%--                        <button type="button" class="btn btn-secondary m-1" id="btn-5" data-toggle="modal" data-target="#modal-remove">Xóa</button>--%>
                     </div>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
-    </section>
+
     <!-- /.content -->
-</div>
+
 <!-- /.content-wrapper -->
+</section>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2({ width: 'resolve' });
+        $('.js-example-basic-multiple').select2({ width: 'resolve' });
+    });
+</script>
