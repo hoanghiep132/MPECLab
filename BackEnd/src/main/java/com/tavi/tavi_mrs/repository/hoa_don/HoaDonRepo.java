@@ -52,4 +52,15 @@ public interface HoaDonRepo extends JpaRepository<HoaDon,Integer>{
             ")")
     Page<HoaDon> findByChiNhanhAndText(int chiNhanhId, String text, Pageable pageable);
 
+    @Query(nativeQuery = true)
+    List<BieuDo> bieuDoDoanhThuTong(Date ngayDau, Date ngayCuoi, boolean xoa);
+
+    @Query(nativeQuery = true)
+    List<BieuDo> bieuDoDoanhThuTrongNam(int year, boolean xoa);
+
+    @Query(nativeQuery = true)
+    List<BieuDo> bieuDoDoanhThuTrongThang(int month,int year, boolean xoa);
+
+    @Query(nativeQuery = true)
+    List<BieuDo> bieuDoDoanhThuByNV(Date ngayDau, Date ngayCuoi, int nguoiDungId, boolean xoa);
 }

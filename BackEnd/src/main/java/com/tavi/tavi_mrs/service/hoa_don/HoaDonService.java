@@ -1,10 +1,13 @@
 package com.tavi.tavi_mrs.service.hoa_don;
 
+import com.tavi.tavi_mrs.entities.bieu_do.BieuDo;
 import com.tavi.tavi_mrs.entities.hoa_don.HoaDon;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public interface HoaDonService {
@@ -24,4 +27,11 @@ public interface HoaDonService {
 
     Page<HoaDon> findByChiNhanhAndText(int chiNhanhId, String text, Pageable pageable);
 
+     List<BieuDo> bieuDoDoanhThuTong(Date ngayDau, Date ngayCuoi, boolean xoa);
+
+     List<BieuDo> bieuDoDoanhThuTrongNam(int year, boolean xoa);
+
+    List<BieuDo> bieuDoDoanhThuTrongThang(int month, int year, boolean xoa);
+
+    List<BieuDo> bieuDoDoanhThuByNV(Date ngayDau, Date ngayCuoi, int nguoiDungId, boolean xoa);
 }

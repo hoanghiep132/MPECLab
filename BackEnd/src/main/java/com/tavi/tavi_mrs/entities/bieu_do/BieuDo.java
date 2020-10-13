@@ -13,4 +13,9 @@ public class BieuDo {
 
     private String x;
     private Double y;
+
+    public BieuDo(Object x, Double y) {
+        this.x = String.valueOf(x);
+        this.y = y;
+    }
 }

@@ -1,5 +1,6 @@
 package com.tavi.tavi_mrs.service_impl.hoa_don;
 
+import com.tavi.tavi_mrs.entities.bieu_do.BieuDo;
 import com.tavi.tavi_mrs.entities.hoa_don.HoaDon;
 import com.tavi.tavi_mrs.repository.hoa_don.HoaDonRepo;
 import com.tavi.tavi_mrs.service.hoa_don.HoaDonService;
@@ -90,6 +91,46 @@ public class HoaDonServiceImpl implements HoaDonService {
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "findByChiNhanhAndText : " + ex);
             ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<BieuDo> bieuDoDoanhThuTong(Date ngayDau, Date ngayCuoi, boolean xoa) {
+        try{
+            return hoaDonRepo.bieuDoDoanhThuTong(ngayDau,ngayCuoi,xoa);
+        }catch (Exception ex){
+            LOGGER.log(Level.SEVERE, "Bieu-do-doanh-thu-tong-err : " + ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<BieuDo> bieuDoDoanhThuTrongThang(int month, int year, boolean xoa) {
+        try{
+            return hoaDonRepo.bieuDoDoanhThuTrongThang(month,year,xoa);
+        }catch (Exception ex){
+            LOGGER.log(Level.SEVERE, "Bieu-do-doanh-thu-trong-thang-err : " + ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<BieuDo> bieuDoDoanhThuTrongNam(int year, boolean xoa) {
+        try{
+            return hoaDonRepo.bieuDoDoanhThuTrongNam(year,xoa);
+        }catch (Exception ex){
+            LOGGER.log(Level.SEVERE, "Bieu-do-doanh-thu-trong-nam-err : " + ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<BieuDo> bieuDoDoanhThuByNV(Date ngayDau, Date ngayCuoi, int nguoiDungId, boolean xoa) {
+        try{
+            return hoaDonRepo.bieuDoDoanhThuByNV(ngayDau,ngayCuoi,nguoiDungId,xoa);
+        }catch (Exception ex){
+            LOGGER.log(Level.SEVERE, "Bieu-do-doanh-thu-by-nhan-vien-err : " + ex);
             return null;
         }
     }

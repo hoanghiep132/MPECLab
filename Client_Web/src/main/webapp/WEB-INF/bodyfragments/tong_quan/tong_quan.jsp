@@ -9,6 +9,9 @@
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="resources/dist/css/style2.css">
 
+<script src="resources/pages/tong_quan/ajax_bieu_do_doanh_thu.js"></script>
+<script src="resources/model/tong_quan/ajax_bieu_do_doanh_thu.js"></script>
+
 <div class="dashboard-main-wrapper">
     <div class="container-fluid dashboard-content">
         <div class="row">
@@ -91,10 +94,13 @@
                 <!-- line chart  -->
                 <!-- ============================================================== -->
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <select id="select_year">
+
+                    </select>
                     <div class="card">
-                        <h5 class="card-header">Line Charts</h5>
+                        <h5 class="card-header">Doanh thu năm</h5>
                         <div class="card-body">
-                            <canvas id="chartjs_line"></canvas>
+                            <canvas id="chartjs_year"></canvas>
                         </div>
                     </div>
                 </div>
@@ -106,9 +112,9 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="card">
-                        <h5 class="card-header">Bar Charts</h5>
+                        <h5 class="card-header">Doanh thu tháng </h5>
                         <div class="card-body">
-                            <canvas id="chartjs_bar"></canvas>
+                            <canvas id="chartjs_month"></canvas>
                         </div>
                     </div>
                 </div>
@@ -118,36 +124,39 @@
             </div>
         </div>
 
-        <div class="row">
+<%--        <div class="row">--%>
             <!-- ============================================================== -->
-            <!-- pie chart  -->
+
+        <!-- pie chart  -->
             <!-- ============================================================== -->
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="card">
-                    <h5 class="card-header">Pie Charts</h5>
-                    <div class="card-body">
-                        <canvas id="chartjs_pie"></canvas>
-                    </div>
-                </div>
-            </div>
+<%--            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">--%>
+<%--                <div class="card">--%>
+<%--                    <h5 class="card-header">Pie Charts</h5>--%>
+<%--                    <div class="card-body">--%>
+<%--                        <canvas id="chartjs_pie"></canvas>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
             <!-- ============================================================== -->
             <!-- end pie chart  -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
+
             <!-- doughnut chart  -->
             <!-- ============================================================== -->
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="card">
-                    <h5 class="card-header">Doughnut Charts</h5>
-                    <div class="card-body">
-                        <canvas id="chartjs_doughnut"></canvas>
-                    </div>
-                </div>
-            </div>
+<%--            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">--%>
+<%--                <div class="card">--%>
+<%--                    <h5 class="card-header">Doughnut Charts</h5>--%>
+<%--                    <div class="card-body">--%>
+<%--                        <canvas id="chartjs_doughnut"></canvas>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
             <!-- ============================================================== -->
             <!-- end doughnut chart  -->
+
             <!-- ============================================================== -->
-        </div>
+<%--        </div>--%>
     </div>
 </div>
 
@@ -419,11 +428,6 @@
                         }]
                     },
                     options: {
-                        scales: {
-                            yAxes: [{
-
-                            }]
-                        },
                         legend: {
                             display: true,
                             position: 'bottom',
@@ -457,83 +461,6 @@
                 });
             }
 
-
-
-
-            if ($('#chartjs_pie').length) {
-                var ctx = document.getElementById("chartjs_pie").getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: ["M", "T", "W", "T", "F", "S", "S"],
-                        datasets: [{
-                            backgroundColor: [
-                                "#5969ff",
-                                "#ff407b",
-                                "#25d5f2",
-                                "#ffc750",
-                                "#2ec551",
-                                "#7040fa",
-                                "#ff004e"
-                            ],
-                            data: [12, 19, 3, 17, 28, 24, 7]
-                        }]
-                    },
-                    options: {
-                        legend: {
-                            display: true,
-                            position: 'bottom',
-
-                            labels: {
-                                fontColor: '#71748d',
-                                fontFamily: 'Circular Std Book',
-                                fontSize: 14,
-                            }
-                        },
-
-
-                    }
-                });
-            }
-
-
-            if ($('#chartjs_doughnut').length) {
-                var ctx = document.getElementById("chartjs_doughnut").getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ["M", "T", "W", "T", "F", "S", "S"],
-                        datasets: [{
-                            backgroundColor: [
-                                "#5969ff",
-                                "#ff407b",
-                                "#25d5f2",
-                                "#ffc750",
-                                "#2ec551",
-                                "#7040fa",
-                                "#ff004e"
-                            ],
-                            data: [12, 19, 3, 17, 28, 24, 7]
-                        }]
-                    },
-                    options: {
-
-                        legend: {
-                            display: true,
-                            position: 'bottom',
-
-                            labels: {
-                                fontColor: '#71748d',
-                                fontFamily: 'Circular Std Book',
-                                fontSize: 14,
-                            }
-                        },
-
-
-                    }
-
-                });
-            }
 
 
         });

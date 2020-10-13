@@ -186,6 +186,40 @@ public class HoaDonController {
         return JsonResult.badRequest("Create Excel fail");
     }
 
+    @GetMapping("/doanh-thu")
+    public ResponseEntity<JsonResult> doanhThuTong( @RequestParam(name = "ngay-dau", defaultValue = "1970-01-01T00:00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate ngayDau,
+                                                    @RequestParam(name = "ngay-cuoi", defaultValue = "9999-12-31T00:00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate ngayCuoi){
+        System.out.println(DateTimeUtils.asDate(ngayDau));
+        return Optional.ofNullable(hoaDonService.bieuDoDoanhThuTong(DateTimeUtils.asDate(ngayDau),DateTimeUtils.asDate(ngayCuoi),false))
+                .map(resultList -> !resultList.isEmpty() ? JsonResult.found(resultList) : JsonResult.notFound("DoanhThu"))
+                .orElse(JsonResult.serverError("Internal Server Error"));
 
+    }
+
+    @GetMapping("/doanh-thu-thang/{year}/{month}")
+    public ResponseEntity<JsonResult> doanhThuTrongThang( @PathVariable("year") int year,
+                                                          @PathVariable("month") int month){
+        return Optional.ofNullable(hoaDonService.bieuDoDoanhThuTrongThang(month,year,false))
+                .map(resultList -> !resultList.isEmpty() ? JsonResult.found(resultList) : JsonResult.notFound("DoanhThu"))
+                .orElse(JsonResult.serverError("Internal Server Error"));
+    }
+
+    @GetMapping("/doanh-thu-nam/{year}")
+    public ResponseEntity<JsonResult> doanhThuTrongNam( @PathVariable("year") int year){
+        return Optional.ofNullable(hoaDonService.bieuDoDoanhThuTrongNam(year,false))
+                .map(resultList -> !resultList.isEmpty() ? JsonResult.found(resultList) : JsonResult.notFound("DoanhThu"))
+                .orElse(JsonResult.serverError("Internal Server Error"));
+    }
+
+    @GetMapping("/doanh-thu-nhan-vien/{id}")
+    public ResponseEntity<JsonResult> doanhThuByNv( @RequestParam(name = "ngay-dau", defaultValue = "1970-01-01T00:00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate ngayDau,
+                                                    @RequestParam(name = "ngay-cuoi", defaultValue = "9999-12-31T00:00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate ngayCuoi,
+                                                    @PathVariable("id") int nhanVienId){
+        System.out.println(DateTimeUtils.asDate(ngayDau));
+        return Optional.ofNullable(hoaDonService.bieuDoDoanhThuByNV(DateTimeUtils.asDate(ngayDau),DateTimeUtils.asDate(ngayCuoi),nhanVienId,false))
+                .map(resultList -> !resultList.isEmpty() ? JsonResult.found(resultList) : JsonResult.notFound("DoanhThu"))
+                .orElse(JsonResult.serverError("Internal Server Error"));
+
+    }
 
 }
