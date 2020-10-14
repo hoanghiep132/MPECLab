@@ -106,6 +106,16 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
+    public List<BieuDo> bieuDoDoanhThuTrongTuan(int week, int year, boolean xoa) {
+        try{
+            return hoaDonRepo.bieuDoDoanhThuTrongTuan(week,year,xoa);
+        }catch (Exception ex){
+            LOGGER.log(Level.SEVERE, "Bieu-do-doanh-thu-trong-thang-err : " + ex);
+            return null;
+        }
+    }
+
+    @Override
     public List<BieuDo> bieuDoDoanhThuTrongThang(int month, int year, boolean xoa) {
         try{
             return hoaDonRepo.bieuDoDoanhThuTrongThang(month,year,xoa);

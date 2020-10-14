@@ -11,3 +11,7 @@ async function bieuDoDoanhThuThang(year,month){
 async function bieuDoDoanhThuNam(year){
     return ajaxGet(`v1/admin/hoa-don/doanh-thu-nam/${year}`);
 }
+
+async function bieuDoDoanhThuTuan(year,week){
+    return ajaxGet(`v1/admin/hoa-don/doanh-thu-tuan/${year}/${week}`);
+}

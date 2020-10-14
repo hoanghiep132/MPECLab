@@ -204,6 +204,14 @@ public class HoaDonController {
                 .orElse(JsonResult.serverError("Internal Server Error"));
     }
 
+    @GetMapping("/doanh-thu-tuan/{year}/{week}")
+    public ResponseEntity<JsonResult> doanhThuTrongTuan( @PathVariable("year") int year,
+                                                          @PathVariable("week") int week){
+        return Optional.ofNullable(hoaDonService.bieuDoDoanhThuTrongTuan(week,year,false))
+                .map(resultList -> !resultList.isEmpty() ? JsonResult.found(resultList) : JsonResult.notFound("DoanhThu"))
+                .orElse(JsonResult.serverError("Internal Server Error"));
+    }
+
     @GetMapping("/doanh-thu-nam/{year}")
     public ResponseEntity<JsonResult> doanhThuTrongNam( @PathVariable("year") int year){
         return Optional.ofNullable(hoaDonService.bieuDoDoanhThuTrongNam(year,false))

@@ -98,9 +98,9 @@
 
                     </select>
                     <div class="card">
-                        <h5 class="card-header">Doanh thu năm</h5>
+                        <h5 class="card-header">Doanh thu tuần</h5>
                         <div class="card-body">
-                            <canvas id="chartjs_year"></canvas>
+                            <canvas id="chartjs_week"></canvas>
                         </div>
                     </div>
                 </div>

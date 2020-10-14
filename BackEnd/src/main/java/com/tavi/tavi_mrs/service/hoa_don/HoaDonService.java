@@ -33,5 +33,7 @@ public interface HoaDonService {
 
     List<BieuDo> bieuDoDoanhThuTrongThang(int month, int year, boolean xoa);
 
+    List<BieuDo> bieuDoDoanhThuTrongTuan(int week, int year, boolean xoa);
+
     List<BieuDo> bieuDoDoanhThuByNV(Date ngayDau, Date ngayCuoi, int nguoiDungId, boolean xoa);
 }

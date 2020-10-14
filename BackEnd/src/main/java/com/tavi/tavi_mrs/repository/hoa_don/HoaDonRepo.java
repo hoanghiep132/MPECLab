@@ -63,4 +63,7 @@ public interface HoaDonRepo extends JpaRepository<HoaDon,Integer>{
 
     @Query(nativeQuery = true)
     List<BieuDo> bieuDoDoanhThuByNV(Date ngayDau, Date ngayCuoi, int nguoiDungId, boolean xoa);
+
+    @Query(nativeQuery = true)
+    List<BieuDo> bieuDoDoanhThuTrongTuan(int week,int year, boolean xoa);
 }

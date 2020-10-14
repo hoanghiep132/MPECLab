@@ -47,6 +47,15 @@ import java.util.Date;
                             " having year(tg) = ?1" +
                             " order by x;" ,
                     resultSetMapping = "DoanhThuMapping"),
+            @NamedNativeQuery(name = "HoaDon.bieuDoDoanhThuTrongTuan",
+                    query = "select sum(hd.tong_tien) y, dayname(hd.thoi_gian) x, " +
+                            " hd.thoi_gian tg "  +
+                            " from hoa_don hd " +
+                            " where hd.xoa = ?3 " +
+                            " group by x " +
+                            " having week(tg) = ?1 and year(tg) = ?2 " +
+                            " order by tg",
+                    resultSetMapping = "DoanhThuMapping"),
             @NamedNativeQuery(name = "HoaDon.bieuDoDoanhThuTrongNgay",
                     query = "select month(hd.thoi_gian) x, " +
                             "sum(hd.tong_tien) y, " +
@@ -76,21 +85,15 @@ import java.util.Date;
                             "where hd.xoa = ?2 " +
                             "group by x " +
                             "having x = ?1",
-                    resultSetMapping = "DoanhThuMapping"),
-            @NamedNativeQuery(name = "HoaDon.tongDoanhThuTuan",
-                    query = "select sum(hd.tong_tien) y, week(hd.thoi_gian) x " +
-                            "from hoa_don hd " +
-                            "where hd.xoa = ?2 " +
-                            "group by x " +
-                            "having x = ?1",
-                    resultSetMapping = "DoanhThuMapping"),
+                    resultSetMapping = "DoanhThuMapping")
+
     }
 )
 
 @SqlResultSetMapping(
         name = "DoanhThuMapping",
         classes = {@ConstructorResult(
-                targetClass = com.tavi.tavi_mrs.entities.bieu_do.BieuDo.class,
+                targetClass = BieuDo.class,
                 columns = { @ColumnResult(name = "x"), @ColumnResult(name = "y") })}
 )
 
