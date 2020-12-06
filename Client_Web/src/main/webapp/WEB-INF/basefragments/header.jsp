@@ -156,7 +156,16 @@
                     <i class="fa fa-edit"></i> <span>Phòng chat</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
-
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-bell"></i> <span>Tài kh</span>
+                    <i class="fa fa-angle-left pull-right"></i>oản
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="tai-khoan"><i class="fa fa-circle-o"></i>Tài khoản</a></li>
+                    <li><a href="dang-xuat"><i class="fa fa-circle-o"></i>Đăng xuất</a></li>
+                </ul>
             </li>
         </ul>
     </section>

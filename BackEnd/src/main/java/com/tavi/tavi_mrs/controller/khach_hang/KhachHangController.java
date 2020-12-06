@@ -5,13 +5,17 @@ import com.tavi.tavi_mrs.entities.json.JsonResult;
 import com.tavi.tavi_mrs.entities.json.PageJson;
 import com.tavi.tavi_mrs.entities.khach_hang.KhachHang;
 import com.tavi.tavi_mrs.service.khach_hang.KhachHangService;
+import com.tavi.tavi_mrs.utils.DateTimeUtils;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -76,6 +80,29 @@ public class KhachHangController {
         System.out.println(khachHangPage.toString());
         return Optional.ofNullable(khachHangPage)
                 .map(khachHangs -> khachHangs.getTotalElements() != 0 ? JsonResult.found(PageJson.build(khachHangs)) : JsonResult.notFound("TenKhachHang/DienThoai/Email"))
+                .orElse(JsonResult.serverError("Internal Server error"));
+    }
+
+    @GetMapping("/count")
+    ResponseEntity<JsonResult> count(){
+        return Optional.ofNullable(khachHangService.countCustomer())
+                .map(c -> c>=0 ? JsonResult.success(c) : JsonResult.badRequest("Count Custormer"))
+                .orElse(JsonResult.serverError("Internal Server error"));
+    }
+
+    @GetMapping("/count-new-custormer")
+    ResponseEntity<JsonResult> countNewCustormer( @RequestParam(name = "start-date", defaultValue = "1970-01-01T00:00:00+00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate start,
+                                                  @RequestParam(name = "end-date", defaultValue = "9999-12-31T00:00:00+00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate end){
+        return Optional.ofNullable(khachHangService.countNewMember( DateTimeUtils.asDate(start), DateTimeUtils.asDate(end)))
+                .map(c -> c>=0 ? JsonResult.success(c) : JsonResult.badRequest("Count Custormer"))
+                .orElse(JsonResult.serverError("Internal Server error"));
+    }
+
+    @GetMapping("/count-transaction")
+    ResponseEntity<JsonResult> countTransaction( @RequestParam(name = "start-date", defaultValue = "1970-01-01T00:00:00+00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate start,
+                                                 @RequestParam(name = "end-date", defaultValue = "9999-12-31T00:00:00+00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate end){
+        return Optional.ofNullable(khachHangService.countCustomerTransaction( DateTimeUtils.asDate(start), DateTimeUtils.asDate(end)))
+                .map(c -> c>=0 ? JsonResult.success(c) : JsonResult.badRequest("Count Custormer"))
                 .orElse(JsonResult.serverError("Internal Server error"));
     }
 

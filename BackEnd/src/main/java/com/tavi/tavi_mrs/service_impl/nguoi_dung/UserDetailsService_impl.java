@@ -25,7 +25,7 @@ public class UserDetailsService_impl implements UserDetailsService {
         NguoiDung appUser = appUserRepo.findByTaiKhoan(s);
         if (appUser == null) throw new UsernameNotFoundException(s);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new User(appUser.getTaiKhoan(), appUser.getMatKhau(), grantedAuthorities);
     }
 }

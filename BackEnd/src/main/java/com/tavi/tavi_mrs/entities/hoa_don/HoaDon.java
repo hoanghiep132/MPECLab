@@ -52,17 +52,35 @@ import java.util.Date;
                             " hd.thoi_gian tg "  +
                             " from hoa_don hd " +
                             " where hd.xoa = ?3 " +
-                            " group by x " +
+                            " group by day(tg) " +
                             " having week(tg) = ?1 and year(tg) = ?2 " +
                             " order by tg",
                     resultSetMapping = "DoanhThuMapping"),
-            @NamedNativeQuery(name = "HoaDon.bieuDoDoanhThuTrongNgay",
-                    query = "select month(hd.thoi_gian) x, " +
+            @NamedNativeQuery(name = "HoaDon.bieuDoDoanhThuGioTrongNgay",
+                    query = "select hour(hd.thoi_gian) x, " +
                             "sum(hd.tong_tien) y, " +
                             " hd.thoi_gian tg " +
                             " from hoa_don hd where hd.xoa = ?2 " +
-                            " group by x" +
-                            " having date(tg) = ?1 &&" +
+                            " group by x " +
+                            " having date(tg) = ?1 " +
+                            " order by x;" ,
+                    resultSetMapping = "DoanhThuMapping"),
+            @NamedNativeQuery(name = "HoaDon.bieuDoDoanhThuGioTrongTuan",
+                    query = "select hour(hd.thoi_gian) x, " +
+                            "sum(hd.tong_tien) y, " +
+                            " hd.thoi_gian tg " +
+                            " from hoa_don hd where hd.xoa = ?3 " +
+                            " group by x " +
+                            " having week(tg) = ?1 and year(tg) = ?2" +
+                            " order by x;" ,
+                    resultSetMapping = "DoanhThuMapping"),
+            @NamedNativeQuery(name = "HoaDon.bieuDoDoanhThuGioTrongThang",
+                    query = "select hour(hd.thoi_gian) x, " +
+                            "sum(hd.tong_tien) y, " +
+                            " hd.thoi_gian tg " +
+                            " from hoa_don hd where hd.xoa = ?3 " +
+                            " group by x " +
+                            " having month(tg) = ?1 and year(tg) = ?2 " +
                             " order by x;" ,
                     resultSetMapping = "DoanhThuMapping"),
             @NamedNativeQuery(name = "HoaDon.tongDoanhThuNgay",

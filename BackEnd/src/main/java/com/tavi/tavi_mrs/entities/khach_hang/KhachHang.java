@@ -1,14 +1,33 @@
 
 package com.tavi.tavi_mrs.entities.khach_hang;
 
+import com.tavi.tavi_mrs.entities.bieu_do.BieuDo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+
+
+//@NamedNativeQueries(
+//        {
+//                @NamedNativeQuery(name = "KhachHang.tongKhachHang",
+//
+//                )
+//        }
+//)
+//
+//@SqlResultSetMapping(
+//        name = "KhachHangMapping",
+//        classes = {@ConstructorResult(
+//                targetClass = BieuDo.class,
+//                columns = { @ColumnResult(name = "x"), @ColumnResult(name = "y") })}
+//)
+
 
 @Entity
 @Data
@@ -33,6 +52,11 @@ public class KhachHang implements Serializable {
 
     @Column(name = "dien_thoai")
     private String dienThoai;
+
+    @NotNull
+    @Column(name = "thoi_gian_tao")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date thoiGian;
 
     @Column(name = "loai_khach")
     private String loaiKhach;
@@ -62,4 +86,7 @@ public class KhachHang implements Serializable {
     private Boolean xoa;
 
 
+
 }
+
+

@@ -4,6 +4,7 @@ import com.tavi.tavi_mrs.entities.khach_hang.KhachHang;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,12 @@ public interface KhachHangService {
     Optional<KhachHang> save(KhachHang khachHang);
 
     Page<KhachHang> search(String text, Pageable pageable);
+
+    Integer countCustomer();
+
+    Integer countCustomerTransaction(Date start, Date end);
+
+    Integer countNewMember(Date start, Date end);
 
 
     Boolean deleted(int id);

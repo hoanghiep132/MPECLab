@@ -27,11 +27,18 @@ public interface HoaDonService {
 
     Page<HoaDon> findByChiNhanhAndText(int chiNhanhId, String text, Pageable pageable);
 
-     List<BieuDo> bieuDoDoanhThuTong(Date ngayDau, Date ngayCuoi, boolean xoa);
+    Integer countBillByTime(Date start, Date end);
+
+    Integer sumBillByTime(Date start, Date end);
+
+    List<BieuDo> bieuDoDoanhThuTong(Date ngayDau, Date ngayCuoi, boolean xoa);
 
      List<BieuDo> bieuDoDoanhThuTrongNam(int year, boolean xoa);
 
     List<BieuDo> bieuDoDoanhThuTrongThang(int month, int year, boolean xoa);
+
+    List<BieuDo> bieuDoDoanhThuGioTrongThang(int month, int year, boolean xoa);
+
 
     List<BieuDo> bieuDoDoanhThuTrongTuan(int week, int year, boolean xoa);
 

@@ -23,7 +23,7 @@ import java.io.OutputStream;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/admin/tai-khoan")
+@RequestMapping("/api/v1/public/tai-khoan")
 public class TaiKhoanController {
 
     @Autowired
@@ -83,7 +83,7 @@ public class TaiKhoanController {
     @GetMapping("/qrcode")
 //    @RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)
 //    public void qrcode(@PathVariable("id") int id, HttpServletResponse response) throws Exception {
-    public void qrcode(@RequestParam("id") int id, HttpServletResponse response) throws Exception {
+    public ResponseEntity<JsonResult> qrcode(@RequestParam("id") int id, HttpServletResponse response) throws Exception {
         Optional<NguoiDung> nguoiDung = nguoiDungService.findById(id,false);
         response.setContentType("image/png");
         OutputStream outputStream = response.getOutputStream();
@@ -91,6 +91,7 @@ public class TaiKhoanController {
         //outputStream.write(ZXingHelper.getQRCodeImage(nguoiDung.toString(), 200, 200));
         outputStream.flush();
         outputStream.close();
+        return JsonResult.success(ZXingHelper.getQRCodeImage(nguoiDung.get().getFacebook(), 200, 200));
     }
 
     @PutMapping("/trang-thai")

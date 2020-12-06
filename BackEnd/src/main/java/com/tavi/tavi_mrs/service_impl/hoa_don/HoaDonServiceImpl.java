@@ -96,6 +96,25 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
+    public Integer countBillByTime(Date start, Date end) {
+        try{
+            return hoaDonRepo.countBillByTime(start,end);
+        }catch (Exception ex){
+            return null;
+        }
+    }
+
+    @Override
+    public Integer sumBillByTime(Date start, Date end) {
+        try{
+            Integer sum = hoaDonRepo.sumBillByTime(start,end);
+            return sum == null ? 0 : sum;
+        }catch (Exception ex){
+            return null;
+        }
+    }
+
+    @Override
     public List<BieuDo> bieuDoDoanhThuTong(Date ngayDau, Date ngayCuoi, boolean xoa) {
         try{
             return hoaDonRepo.bieuDoDoanhThuTong(ngayDau,ngayCuoi,xoa);
@@ -119,6 +138,16 @@ public class HoaDonServiceImpl implements HoaDonService {
     public List<BieuDo> bieuDoDoanhThuTrongThang(int month, int year, boolean xoa) {
         try{
             return hoaDonRepo.bieuDoDoanhThuTrongThang(month,year,xoa);
+        }catch (Exception ex){
+            LOGGER.log(Level.SEVERE, "Bieu-do-doanh-thu-trong-thang-err : " + ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<BieuDo> bieuDoDoanhThuGioTrongThang(int month, int year, boolean xoa) {
+        try{
+            return hoaDonRepo.bieuDoDoanhThuGioTrongThang(month,year,xoa);
         }catch (Exception ex){
             LOGGER.log(Level.SEVERE, "Bieu-do-doanh-thu-trong-thang-err : " + ex);
             return null;

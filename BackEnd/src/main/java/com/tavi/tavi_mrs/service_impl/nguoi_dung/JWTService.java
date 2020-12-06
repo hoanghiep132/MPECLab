@@ -5,15 +5,19 @@ import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.stereotype.Service;
 import com.tavi.tavi_mrs.security.SecurityConstants;
 
+import java.util.Date;
+
 
 @Service
 public class JWTService {
 
     //Tạo token
     public String generateToken(String username, long expirationTime) {
-
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + SecurityConstants.EXPIRATION_TIME);
         return SecurityConstants.TOKEN_PREFIX + JWT.create()
                 .withSubject(username)
+                .withExpiresAt(expiryDate)
 //                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
     }

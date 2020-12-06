@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,20 @@ public interface KhachHangRepo extends JpaRepository<KhachHang, Integer> {
 
     @Query(value = "select k from KhachHang k where k.xoa = false")
     Page<KhachHang> findAll(Pageable pageable);
+
+    @Query(nativeQuery = true,value = "select  count(khach_hang.id) from khach_hang " +
+                    "where khach_hang.id in (select distinct hd.khach_hang_id from hoa_don hd " +
+                    "where hd.thoi_gian >= ?1 and hd.thoi_gian <= ?2 " +
+                    "group by hd.khach_hang_id) ")
+    Integer countCustomerTransaction(Date start, Date end);
+
+    @Query(nativeQuery = true, value = "select count(*) from khach_hang where khach_hang.xoa = false")
+    Integer countCustomer();
+
+    @Query(nativeQuery = true,value = "select count(*) from khach_hang kh " +
+                    "where kh.thoi_gian_tao >= ?1 and kh.thoi_gian_tao <= ?2 " +
+                    "and kh.xoa = false")
+    Integer countNewMember(Date start, Date end);
 
     @Modifying
     @Transactional

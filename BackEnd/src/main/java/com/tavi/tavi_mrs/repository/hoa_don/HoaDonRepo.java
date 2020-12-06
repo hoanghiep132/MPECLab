@@ -52,6 +52,16 @@ public interface HoaDonRepo extends JpaRepository<HoaDon,Integer>{
             ")")
     Page<HoaDon> findByChiNhanhAndText(int chiNhanhId, String text, Pageable pageable);
 
+    @Query(nativeQuery = true, value = "select count(*) from hoa_don hd " +
+                    "where hd.thoi_gian >= ?1 and hd.thoi_gian <= ?2 " +
+                    " and hd.xoa = false;\n")
+    Integer countBillByTime(Date start, Date end);
+
+    @Query(nativeQuery = true, value = "select sum(hd.tong_tien) from hoa_don hd " +
+                    "where hd.thoi_gian >= ?1 and hd.thoi_gian <= ?2 " +
+                    "and hd.xoa = false;")
+    Integer sumBillByTime(Date start, Date end);
+
     @Query(nativeQuery = true)
     List<BieuDo> bieuDoDoanhThuTong(Date ngayDau, Date ngayCuoi, boolean xoa);
 
@@ -62,8 +72,12 @@ public interface HoaDonRepo extends JpaRepository<HoaDon,Integer>{
     List<BieuDo> bieuDoDoanhThuTrongThang(int month,int year, boolean xoa);
 
     @Query(nativeQuery = true)
+    List<BieuDo> bieuDoDoanhThuGioTrongThang(int month, int year, boolean xoa);
+
+    @Query(nativeQuery = true)
     List<BieuDo> bieuDoDoanhThuByNV(Date ngayDau, Date ngayCuoi, int nguoiDungId, boolean xoa);
 
     @Query(nativeQuery = true)
     List<BieuDo> bieuDoDoanhThuTrongTuan(int week,int year, boolean xoa);
+
 }

@@ -109,6 +109,22 @@ public class HoaDonController {
                 .orElse(JsonResult.serverError("Internal Server error"));
     }
 
+    @GetMapping("/count-bill")
+    public ResponseEntity<JsonResult> countBill(@RequestParam(name = "start-date", defaultValue = "1970-01-01T00:00:00+00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate start,
+                                                @RequestParam(name = "end-date", defaultValue = "9999-12-31T00:00:00+00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate end){
+        return Optional.ofNullable(hoaDonService.countBillByTime(DateTimeUtils.asDate(start),DateTimeUtils.asDate(end)))
+                .map(c -> c >= 0 ? JsonResult.success(c) : JsonResult.badRequest("Count Bill"))
+                .orElse(JsonResult.serverError("Internal Server error"));
+    }
+
+    @GetMapping("/sum-bill")
+    public ResponseEntity<JsonResult> sumBill(@RequestParam(name = "start-date", defaultValue = "1970-01-01T00:00:00+00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate start,
+                                                @RequestParam(name = "end-date", defaultValue = "9999-12-31T00:00:00+00:00", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate end){
+        return Optional.ofNullable(hoaDonService.sumBillByTime(DateTimeUtils.asDate(start),DateTimeUtils.asDate(end)))
+                .map(c -> c >= 0 ? JsonResult.success(c) : JsonResult.badRequest("Sum Bill"))
+                .orElse(JsonResult.serverError("Internal Server error"));
+    }
+
     @PostMapping("/upload")
     @ApiOperation(value = "post hoa don", response = HoaDon.class)
     public ResponseEntity<JsonResult> post(@RequestBody HoaDon hoaDon,
@@ -200,6 +216,14 @@ public class HoaDonController {
     public ResponseEntity<JsonResult> doanhThuTrongThang( @PathVariable("year") int year,
                                                           @PathVariable("month") int month){
         return Optional.ofNullable(hoaDonService.bieuDoDoanhThuTrongThang(month,year,false))
+                .map(resultList -> !resultList.isEmpty() ? JsonResult.found(resultList) : JsonResult.notFound("DoanhThu"))
+                .orElse(JsonResult.serverError("Internal Server Error"));
+    }
+
+    @GetMapping("/doanh-thu-gio-trong-thang/{year}/{month}")
+    public ResponseEntity<JsonResult> doanhThuGioTrongThang( @PathVariable("year") int year,
+                                                             @PathVariable("month") int month){
+        return Optional.ofNullable(hoaDonService.bieuDoDoanhThuGioTrongThang(month,year,false))
                 .map(resultList -> !resultList.isEmpty() ? JsonResult.found(resultList) : JsonResult.notFound("DoanhThu"))
                 .orElse(JsonResult.serverError("Internal Server Error"));
     }

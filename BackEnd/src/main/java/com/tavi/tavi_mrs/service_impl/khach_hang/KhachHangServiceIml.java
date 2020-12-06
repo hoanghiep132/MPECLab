@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -79,6 +81,36 @@ public class KhachHangServiceIml implements KhachHangService {
     public Page<KhachHang> search(String text, Pageable pageable) {
         try{
             return khachHangRepo.search(text,pageable);
+        }catch (Exception ex){
+            return null;
+        }
+    }
+
+    @Override
+    public Integer countCustomer() {
+        try{
+            Integer count = khachHangRepo.countCustomer();
+            return count == null ? 0 : count;
+        }catch (Exception ex){
+            return null;
+        }
+    }
+
+    @Override
+    public Integer countCustomerTransaction(Date start, Date end) {
+        try{
+            Integer count = khachHangRepo.countCustomerTransaction(start,end);
+            return count == null ? 0 : count;
+        }catch (Exception ex){
+            return null;
+        }
+    }
+
+    @Override
+    public Integer countNewMember(Date start, Date end) {
+        try{
+            Integer count = khachHangRepo.countNewMember(start,end);
+            return count == null ? 0 : count;
         }catch (Exception ex){
             return null;
         }

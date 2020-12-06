@@ -15,13 +15,19 @@
 <div class="dashboard-main-wrapper">
     <div class="container-fluid dashboard-content">
         <div class="row">
+            <div class="span12 text-center" id="sub_title" style="font-size: 36px;">
+                TỔNG HỢP THÁNG 01
+            </div>
+<%--            <span id="sub_title" style="font-size: 36px;">TỔNG HỢP THÁNG 01</span>--%>
+        </div>
+        <div class="row">
 
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                 <div class="card border-3 border-top border-top-primary">
                     <div class="card-body">
                         <h5 class="text-muted">Sales</h5>
                         <div class="metric-value d-inline-block">
-                            <h1 class="mb-1">$12099</h1>
+                            <h1 class="mb-1" id="sales">$12099</h1>
                         </div>
                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                             <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5.86%</span>
@@ -40,7 +46,7 @@
                     <div class="card-body">
                         <h5 class="text-muted">New Customer</h5>
                         <div class="metric-value d-inline-block">
-                            <h1 class="mb-1">1245</h1>
+                            <h1 class="mb-1" id="new_custormer">1245</h1>
                         </div>
                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                             <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">10%</span>
@@ -59,7 +65,7 @@
                     <div class="card-body">
                         <h5 class="text-muted">Visitor</h5>
                         <div class="metric-value d-inline-block">
-                            <h1 class="mb-1">13000</h1>
+                            <h1 class="mb-1" id="visitor">13000</h1>
                         </div>
                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                             <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5%</span>
@@ -78,7 +84,7 @@
                     <div class="card-body">
                         <h5 class="text-muted">Total Orders</h5>
                         <div class="metric-value d-inline-block">
-                            <h1 class="mb-1">1340</h1>
+                            <h1 class="mb-1" id="total_order">1340</h1>
                         </div>
                         <div class="metric-label d-inline-block float-right text-danger font-weight-bold">
                             <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light "><i class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1">4%</span>
@@ -94,11 +100,22 @@
                 <!-- line chart  -->
                 <!-- ============================================================== -->
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                    <select id="select_year">
-
-                    </select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="caifop1li form-group">
+                                <label class="control-label">Chọn ngày</label>
+                                <div class="input-group date">
+                                    <input type="text" class="form-control border-gray date-vn" id="choose_day">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <span class="help-block">Help block with success</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card">
-                        <h5 class="card-header">Doanh thu tuần</h5>
+                        <h5 class="card-header">Doanh thu trong tuần</h5>
                         <div class="card-body">
                             <canvas id="chartjs_week"></canvas>
                         </div>
@@ -111,8 +128,11 @@
                 <!-- bar chart  -->
                 <!-- ============================================================== -->
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <br>
+                    <br>
+                    <br>
                     <div class="card">
-                        <h5 class="card-header">Doanh thu tháng </h5>
+                        <h5 class="card-header">Doanh thu trong tháng </h5>
                         <div class="card-body">
                             <canvas id="chartjs_month"></canvas>
                         </div>
@@ -121,6 +141,26 @@
                 <!-- ============================================================== -->
                 <!-- end bar chart  -->
                 <!-- ============================================================== -->
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Doanh thu trong năm</h5>
+                        <div class="card-body">
+                            <canvas id="chartjs_year"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Doanh thu theo giờ trong tháng </h5>
+                        <div class="card-body">
+                            <canvas id="chartjs_hour"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

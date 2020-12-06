@@ -158,7 +158,7 @@ function setViewHoaDon(pageNumber) {
     if (len > 0) {
         view += arr.map((item, index) => `<tr data-index="${index}" class="click-thuong-hieu">
                     <td data-id="${viewField(item.id)}">${(pageNumber - 1)*10 + index + 1}</td>
-                    <td><a href="hoa-don-chi-tiet?id=${item.id}" target="_blank">${viewField(item.maHoaDon)}</a></td>
+                    <td><a href="hoa-don-chi-tiet?id=${item.id}" target="_blank">${viewField(item.ma)}</a></td>
                     <td>${viewThoiGian(item.thoiGian)}</td>
                     <td>${viewField(item.nguoiDung.hoVaTen)}</td>
                     <td>${viewField(item.khachHang.tenKhachHang)}</td>

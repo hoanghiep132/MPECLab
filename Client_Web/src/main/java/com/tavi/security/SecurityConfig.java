@@ -1,5 +1,6 @@
 package com.tavi.security;
 
+
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,7 @@ package com.tavi.security;
 //import org.springframework.web.cors.CorsConfiguration;
 //import org.springframework.web.cors.CorsConfigurationSource;
 //import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-//
+
 //@Configuration
 //@EnableWebSecurity
 //@EnableGlobalMethodSecurity(
@@ -21,8 +22,7 @@ package com.tavi.security;
 //        securedEnabled = true,
 //        jsr250Enabled = true)
 
-public class SecurityConfig {
-
+public class SecurityConfig{
 //public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
 //    @Bean
@@ -40,7 +40,7 @@ public class SecurityConfig {
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http.cors().and().csrf().disable();
 //
-//        http.antMatcher("/api/**")
+//        http.antMatcher("/**")
 //                .authorizeRequests()
 //                .antMatchers("/api/**/public/**").permitAll()
 //                .anyRequest().authenticated()
@@ -54,7 +54,7 @@ public class SecurityConfig {
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //
 //    }
-//
+
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(userDetailsService);
