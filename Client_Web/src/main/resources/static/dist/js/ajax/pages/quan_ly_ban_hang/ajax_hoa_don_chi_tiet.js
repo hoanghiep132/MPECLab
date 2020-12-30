@@ -125,7 +125,6 @@ function viewThoiGian(thoiGian){
 
 function taiExcelTK() {
     $('#btn-excel').on('click', function () {
-        console.log("inds");
         ajaxGet('v1/admin/hoa-don-chi-tiet/excel?list-hoa-don-chi-tiet=' + arr.map(hoaDonChiTiet => hoaDonChiTiet.id))
             .then(rs => {
                 window.open(rs.data, '_blank');

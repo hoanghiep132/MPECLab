@@ -20,7 +20,8 @@
         <!-- Sidebar user panel -->
         <div class="user-panel" style="margin-top:-20px;">
             <div class="pull-left image">
-                <img id="avatar" src="./dist/img/imgquy.png" class="img-circle" alt="User Image" />
+<%--                <img id="avatar" src="./dist/img/imgquy.png" class="img-circle" alt="User Image" />--%>
+                <img id="avatar" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
                 <p id="name-emp" style="font-size: 16px;">Nguyễn Đức Quý</p>

@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface HoaDonService {
 
+    List<HoaDon> findAll();
 
     Optional<HoaDon> findById(int id);
 

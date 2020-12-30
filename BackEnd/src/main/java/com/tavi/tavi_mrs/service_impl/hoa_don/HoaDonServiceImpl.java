@@ -24,6 +24,16 @@ public class HoaDonServiceImpl implements HoaDonService {
 
 
     @Override
+    public List<HoaDon> findAll() {
+        try{
+            return hoaDonRepo.findAll();
+        }catch (Exception ex){
+            LOGGER.log(Level.SEVERE,"find-all-hoa-don-err: " + ex);
+            return null;
+        }
+    }
+
+    @Override
     public Optional<HoaDon> findById(int id) {
         return Optional.empty();
     }

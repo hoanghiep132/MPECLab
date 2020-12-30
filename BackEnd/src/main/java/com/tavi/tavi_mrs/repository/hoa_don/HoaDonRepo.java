@@ -25,6 +25,9 @@ public interface HoaDonRepo extends JpaRepository<HoaDon,Integer>{
     @Query(value = " select h from HoaDon h where h.xoa = false order by h.id")
     Page<HoaDon> findAllToPage(Pageable pageable);
 
+    @Query(value = "select h from HoaDon h where h.xoa = false order by h.id")
+    List<HoaDon> findAll();
+
     @Query(value = "from HoaDon h" +
             " where "+
             "(?1 is null or h.ma like concat('%', ?1, '%')) " +

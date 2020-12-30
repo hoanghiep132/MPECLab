@@ -69,6 +69,13 @@ public class HoaDonController {
                 .orElse(JsonResult.serverError("Internal Server error"));
     }
 
+    @GetMapping("/find-all-excel")
+    ResponseEntity<JsonResult> findAllToExcel() {
+        return Optional.ofNullable(hoaDonService.findAll())
+                .map(JsonResult::found)
+                .orElse(JsonResult.notFound("HoaDon"));
+    }
+
     @GetMapping("/search")
     public ResponseEntity<JsonResult> findByMo(@RequestParam(value = "ma-hoa-don", required = false, defaultValue = "") String maHoaDon,
                                                @RequestParam(value = "ten-khach-hang", required = false, defaultValue = "") String tenKhachHang,

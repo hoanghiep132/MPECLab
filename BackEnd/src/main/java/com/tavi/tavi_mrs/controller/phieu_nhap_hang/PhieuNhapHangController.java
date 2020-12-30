@@ -8,8 +8,11 @@ import com.tavi.tavi_mrs.service.nguoi_dung.NguoiDungService;
 import com.tavi.tavi_mrs.service.nha_cung_cap.NhaCungCapService;
 import com.tavi.tavi_mrs.service.phieu_nhap_hang.PhieuNhapHangService;
 import com.tavi.tavi_mrs.utils.DateTimeUtils;
+import com.tavi.tavi_mrs.utils.ExcelUtils;
 import io.swagger.annotations.ApiOperation;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,11 +20,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -35,6 +42,12 @@ public class PhieuNhapHangController {
 
     @Autowired
     NhaCungCapService nhaCungCapService;
+
+    @Value("${spring.upload.folder-upload}")
+    private String UPLOAD_DIRECTORY;
+
+    @Value("${spring.upload.link-prefix}")
+    private String URL_UPLOAD_FILE;
 
     @PostMapping("/upload")
     @ApiOperation(value = "post phieu nhap hang ", response = PhieuNhapHang.class)
@@ -131,6 +144,24 @@ public class PhieuNhapHangController {
             return JsonResult.deleted();
         }
         return JsonResult.saveError("phieuNhapHang");
+    }
+
+    @GetMapping("/excel")
+    public ResponseEntity<JsonResult> getExcel(@RequestParam("list-phieu-nhap-hang") List<PhieuNhapHang> phieuNhapHangs) {
+        XSSFWorkbook workbook = ExcelUtils.createDanhSachPhieuNhapExcel(phieuNhapHangs);
+        try{
+            String fileName = "DanhSachPhieuNhapHang_" + LocalDateTime.now().getNano() + ".xlsx";
+            File file = new File(UPLOAD_DIRECTORY + fileName);
+            file.getParentFile().mkdirs();
+            FileOutputStream outFile;
+            outFile = new FileOutputStream(file);
+            workbook.write(outFile);
+            outFile.close();
+            return JsonResult.uploaded(URL_UPLOAD_FILE + fileName);
+        }catch (IOException ex){
+            ex.printStackTrace();
+            return JsonResult.badRequest("Create Excel fail");
+        }
     }
 
 }

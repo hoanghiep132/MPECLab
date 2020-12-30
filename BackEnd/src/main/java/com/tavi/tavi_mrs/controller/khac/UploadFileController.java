@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 
 @RestController
-@RequestMapping("api/v1/public")
+@RequestMapping("api/v1/admin")
 
 public class UploadFileController {
 
